@@ -11,7 +11,5 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {
     let options = "test";
-
   }
-
 }
