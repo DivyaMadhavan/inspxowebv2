@@ -10,6 +10,8 @@ export class TestComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    let options = "test";
+
   }
 
 }
