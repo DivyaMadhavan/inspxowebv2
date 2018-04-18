@@ -25,6 +25,13 @@ export const navigation = [
                 'type'     : 'item',
                 'icon'     : 'lock',
                 'url'      : '/createtemplate'
+            },
+            {
+                'id'       : 'users',
+                'title'    : 'ManageUsers',               
+                'type'     : 'item',
+                'icon'     : 'lock',
+                'url'      : '/users'
             }
         ]
     }

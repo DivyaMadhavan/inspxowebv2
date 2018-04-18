@@ -19,6 +19,14 @@ import { AuditRegistorModule } from './main/content/register/register.module';
 import { Forgotpasswordmodule } from './main/content/forgotpassword/forgotpassword.module';
 import { CreatetemplateModule } from './main/content/createtemplate/createtemplate.module';
 import { TestComponent } from './test/test.component';
+import { usersModule } from './main/content/users/users.module';
+//import { UserdetailviewComponent } from './userdetailview/userdetailview.component';
+
+//import { AdduserComponent } from './main/content/users/tabs/adduser/adduser.component';
+//import { ViewuserComponent } from './main/content/users/tabs/viewuser/viewuser.component';
+
+//import { SearchModule } from './search/search.module';
+//import { UsersComponent } from './users/users.component';
 //import { RegisterComponent } from './main/content/register/register.component';
 //import { LoginComponent } from './main/content/login/login.component';
  
@@ -47,7 +55,7 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        TestComponent   
+        TestComponent
     ],
     imports     : [
         BrowserModule,
@@ -66,7 +74,8 @@ const appRoutes: Routes = [
         Forgotpasswordmodule,
         CreatetemplateModule,
          // Social media login
-        SocialLoginModule
+        SocialLoginModule,
+        usersModule
     ],
     providers: [        
         {

@@ -1,0 +1,27 @@
+<div id="ngx-datatable" class="page-layout simple fullwidth" fusePerfectScrollbar>
+<!-- HEADER -->
+<!-- <div class="header mat-accent-bg p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+fxLayoutAlign.gt-sm="space-between end">
+
+<mat-form-field class="w-100-p">
+   <input matInput name="search" placeholder="Search...">
+</mat-form-field>
+
+</div> -->
+<!-- / HEADER -->
+<div class="content">
+
+    <mat-tab-group dynamicHeight="true">
+        <mat-tab label="Add User">
+            <app-adduser></app-adduser>
+        </mat-tab>
+        <mat-tab label="View User">
+            <app-viewuser></app-viewuser>
+        </mat-tab>
+        <mat-tab label="User Detail View">
+                <app-userdetailview></app-userdetailview>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+

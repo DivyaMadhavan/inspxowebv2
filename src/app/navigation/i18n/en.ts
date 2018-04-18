@@ -15,6 +15,10 @@ export const locale = {
              'createtemplate':
              {
                 'TITLE': 'createtemplate'    
+             },
+             'users':
+             {
+                'TITLE': 'users'    
              }
 
         }
