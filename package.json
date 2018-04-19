@@ -1,14 +1,13 @@
 {
   "name": "amaaudotapp",
-  "version": "5.2.10",
+  "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "build":"ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "bundle-report": "webpack-bundle-analyzer dist/stats.json"
+    "e2e": "ng e2e"    
   },
   "private": true,
   "dependencies": {
