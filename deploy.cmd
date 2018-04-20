@@ -100,7 +100,7 @@ IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
   popd
 )
 
-:: 3. Angular Prod Build //If you had generated this yourself then please add this step manually!!)
+:: 3.included Angular Prod Build //If you had generated this yourself then please add this step manually!!)
 IF EXIST "%DEPLOYMENT_SOURCE%/.angular-cli.json" (
 echo Building App in %DEPLOYMENT_SOURCE%…
 pushd "%DEPLOYMENT_SOURCE%"
