@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { UsersComponent } from './users.component';
 //import { userService } from './users.service';
-import { AdduserComponent } from './tabs/adduser/adduser.component';
+import { AddusersComponent } from './tabs/addusers/addusers.component';
 import { ViewuserComponent } from './tabs/viewuser/viewuser.component';
 import { UserdetailviewComponent } from './tabs/userdetailview/userdetailview.component';
 import {
@@ -54,15 +53,14 @@ const routes = [
 @NgModule({
     declarations: [
         UsersComponent,
-        AdduserComponent,
+        AddusersComponent,
         ViewuserComponent,
         UserdetailviewComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
 
-        TranslateModule,
-
+        TranslateModule,      
         FuseSharedModule,
         MatAutocompleteModule,
         MatButtonModule,
@@ -96,7 +94,7 @@ const routes = [
         MatTabsModule,
         MatToolbarModule,
         MatTooltipModule,
-        CdkTableModule
+        CdkTableModule        
     ],
     exports     : [
         UsersComponent,MatAutocompleteModule,

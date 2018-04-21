@@ -19,7 +19,8 @@ import { AuditRegistorModule } from './main/content/register/register.module';
 import { Forgotpasswordmodule } from './main/content/forgotpassword/forgotpassword.module';
 import { CreatetemplateModule } from './main/content/createtemplate/createtemplate.module';
 import { TestComponent } from './test/test.component';
-import { usersModule } from './main/content/users/users.module';
+//import { usersModule } from './main/content/users/users.module';
+import { UserService } from './main/content/sample/user.service';
 //import { UserdetailviewComponent } from './userdetailview/userdetailview.component';
 
 //import { AdduserComponent } from './main/content/users/tabs/adduser/adduser.component';
@@ -63,7 +64,6 @@ const appRoutes: Routes = [
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
         TranslateModule.forRoot(),
-
         // Fuse Main and Shared modules
         FuseModule.forRoot(fuseConfig),
         FuseSharedModule,
@@ -75,13 +75,14 @@ const appRoutes: Routes = [
         CreatetemplateModule,
          // Social media login
         SocialLoginModule,
-        usersModule
+        //usersModule
     ],
     providers: [        
         {
           provide: AuthServiceConfig,
           useFactory: getAuthServiceConfigs
-        }
+        },
+         UserService
       ],
     bootstrap   : [
         AppComponent

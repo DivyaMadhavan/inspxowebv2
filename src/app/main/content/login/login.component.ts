@@ -9,6 +9,9 @@ import {
     FacebookLoginProvider,
     GoogleLoginProvider
 } from 'angular5-social-login';
+import { HttpClient} from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-login',
@@ -25,7 +28,7 @@ export class LoginComponent implements OnInit {
   constructor(
       private fuseConfig: FuseConfigService,
       private formBuilder: FormBuilder,
-      private router :Router,private socialAuthService: AuthService 
+      private router :Router,private socialAuthService: AuthService,private http: HttpClient
   )
   {
       this.fuseConfig.setConfig({
@@ -60,10 +63,8 @@ export class LoginComponent implements OnInit {
           {
               continue;
           }
-
           // Clear previous errors
           this.loginFormErrors[field] = {};
-
           // Get the control
           const control = this.loginForm.get(field);
 
@@ -75,9 +76,17 @@ export class LoginComponent implements OnInit {
   }
   clickMe()
   {
-       // console.log("ClickEvent call");
-       this.router.navigate(['/Dashboard']);
-  }
+    this.http.get('http://52.176.42.140:8000/api/logincheck/', {         
+        params: {
+            username: "test",
+            password: "test123",
+            accountid: "123",
+          } 
+     }).subscribe(data => {     
+         console.log(data); 
+        //this.router.navigate(['/Dashboard']);     
+  })
+}
   public socialSignIn(socialPlatform : string) {
     console.log("ClickEvent socialmedia");
     let socialPlatformProvider;

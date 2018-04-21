@@ -1,5 +1,55 @@
-<div class="page-layout blank p-24" fusePerfectScrollbar>
+<!-- <div class="page-layout blank p-24" fusePerfectScrollbar>
 
     <h2>{{SAMPLE}}</h2>
 
-</div>
+</div> -->
+
+<div class="example-container mat-elevation-z8" fusePerfectScrollbar>
+    <mat-table #table [dataSource]="dataSource">
+  
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="firstname">
+        <mat-header-cell *matHeaderCellDef> firstname </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.firstname}} </mat-cell>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="lastname">
+        <mat-header-cell *matHeaderCellDef> lastname</mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.lastname}} </mat-cell>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="emailid">
+        <mat-header-cell *matHeaderCellDef> emailid </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.emailid}} </mat-cell>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="rolename">
+        <mat-header-cell *matHeaderCellDef> rolename </mat-header-cell>
+        <mat-cell *matCellDef="let user"> {{user.rolename}} </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"
+               (click)="selection.toggle(row)">
+      </mat-row>
+    </mat-table>
+  </div>
