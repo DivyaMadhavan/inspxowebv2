@@ -9,9 +9,7 @@
           </div>
 
           <div class="title">Inspexo</div>
-
           <form name="loginForm" [formGroup]="loginForm" (ngSubmit)="loginclick()" novalidate>
-
               <mat-form-field>
                   <input matInput  type="text" placeholder="Username" [(ngModel)]="username" formControlName="username">
                   <mat-error *ngIf="loginFormErrors.username.required">
