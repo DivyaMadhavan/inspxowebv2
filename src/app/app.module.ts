@@ -8,6 +8,10 @@ import 'hammerjs';
 import { SocialLoginModule,AuthServiceConfig,GoogleLoginProvider,FacebookLoginProvider } from "angular5-social-login";
 import { FuseModule } from '@fuse/fuse.module';
 import { FuseSharedModule } from '@fuse/shared.module';
+import { AgmCoreModule } from '@agm/core';
+//import { DatePipe } from '@angular/common';
+//import { FORM_DIRECTIVES } from '@angular/common';
+import { } from 'googlemaps';
 
 import { fuseConfig } from './fuse-config';
 
@@ -16,11 +20,23 @@ import { FuseMainModule } from './main/main.module';
 import { FuseSampleModule } from './main/content/sample/sample.module';
 import { FuseLoginModule } from './main/content/login/login.module';
 import { AuditRegistorModule } from './main/content/register/register.module';
+import { HelpPageModule } from './main/content//helppage/helppage.module';
 import { Forgotpasswordmodule } from './main/content/forgotpassword/forgotpassword.module';
 import { CreatetemplateModule } from './main/content/createtemplate/createtemplate.module';
-import { TestComponent } from './test/test.component';
-//import { usersModule } from './main/content/users/users.module';
+import { resetpasswordModule } from './main/content/resetpassword/resetpassword.module';
+import { socialregisterModule } from './main/content/socialregister/socialregister.module';
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon"; // <----- Here
+import { testModule } from './main/content//test/test.module';
+import { usersModule } from './main/content/users/users.module';
 import { UserService } from './main/content/sample/user.service';
+import { ManageuserService } from './main/content/users/services/manageuser.service';
+import { FormsModule, ReactiveFormsModule,NgModel  } from '@angular/forms';
+
+
+//import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+//import { SocialmedialoginComponent } from '../socialmedialogin/socialmedialogin.component';
+
 //import { UserdetailviewComponent } from './userdetailview/userdetailview.component';
 
 //import { AdduserComponent } from './main/content/users/tabs/adduser/adduser.component';
@@ -55,10 +71,14 @@ const appRoutes: Routes = [
    
 @NgModule({
     declarations: [
-        AppComponent,
-        TestComponent
+        AppComponent        
+                       
     ],
     imports     : [
+        AgmCoreModule.forRoot({
+            apiKey: "AIzaSyDl7mxzn73b215LyNPY7nlV9IC4arkxjLA",
+            libraries: ["places"]
+          }),
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -72,17 +92,22 @@ const appRoutes: Routes = [
         FuseLoginModule,
         AuditRegistorModule,
         Forgotpasswordmodule,
-        CreatetemplateModule,
+        CreatetemplateModule,       
+        resetpasswordModule,
+        socialregisterModule,
          // Social media login
         SocialLoginModule,
-        //usersModule
+        testModule,
+        usersModule,HelpPageModule,
+        FormsModule, ReactiveFormsModule ,MatButtonModule, MatIconModule
     ],
     providers: [        
         {
           provide: AuthServiceConfig,
           useFactory: getAuthServiceConfigs
         },
-         UserService
+         UserService,
+         ManageuserService
       ],
     bootstrap   : [
         AppComponent

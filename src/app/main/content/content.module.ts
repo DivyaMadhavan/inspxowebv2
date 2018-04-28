@@ -5,14 +5,17 @@ import { FuseSharedModule } from '@fuse/shared.module';
 
 import { FuseContentComponent } from 'app/main/content/content.component';
 
+//import { SocialregisterComponent } from './socialregister/socialregister.component';
+//import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+
 @NgModule({
     declarations: [
         FuseContentComponent
+              
     ],
     imports     : [
         RouterModule,
-
-        FuseSharedModule,
+        FuseSharedModule        
     ],
     exports: [
         FuseContentComponent

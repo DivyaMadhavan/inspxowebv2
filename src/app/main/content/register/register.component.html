@@ -7,23 +7,26 @@
           <div class="logo">
               <img src="assets/images/logos/fuse.svg">
           </div>
+         
+            <div fxLayout="row" >               
+                <div class="title">Registration</div>    
+                <div class="titleright">Already have an Account?
+                <a class="link" [routerLink]="'/Login'">Login</a></div>
+            </div> 
+          <form name="registerForm" [formGroup]="registerForm" (ngSubmit)="Registerclick()" novalidate>
 
-          <div class="title">CREATE AN ACCOUNT</div>
-
-          <form name="registerForm" [formGroup]="registerForm" novalidate>
-
-            <div class="title">Personal Details</div>
+            <div class="subtittle">Personal Details</div>
                 
                 <mat-form-field>
-                    <input matInput placeholder="First Name" formControlName="name">
-                    <mat-error *ngIf="registerFormErrors.name.required">
-                        Name is required
+                    <input matInput placeholder="First Name" formControlName="firstname">
+                    <mat-error *ngIf="registerFormErrors.firstname.required">
+                       First Name is required
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                        <input matInput placeholder="Last Name" formControlName="name">
-                        <mat-error *ngIf="registerFormErrors.name.required">
-                            Name is required
+                        <input matInput placeholder="Last Name" formControlName="lastname">
+                        <mat-error *ngIf="registerFormErrors.lastname.required">
+                            Last Name is required
                         </mat-error>
                     </mat-form-field>
 
@@ -38,81 +41,118 @@
                 </mat-form-field>
                 
                 <mat-form-field>
-                        <input matInput type="password" placeholder="Phonenumber" formControlName="passwordConfirm">
+                    <input matInput placeholder="Phone Number" type="number" formControlName="phonenumber">
+                    <mat-error *ngIf="registerFormErrors.phonenumber.required">
+                        Phone Number is required
+                    </mat-error>
+                </mat-form-field>
+                    <div class="subtittle">Company Details</div>
+
+                    <mat-form-field>
+                            <input matInput placeholder="Company" formControlName="companyname">
+                            <mat-error *ngIf="registerFormErrors.companyname.required">
+                                Company Name is required
+                            </mat-error>
+                        </mat-form-field>
+                     
+                            <mat-form-field>
+                                <mat-select placeholder="Choose Industry" formControlName="industrylistdet">
+                                    <mat-option [value]="'Technology'">
+                                        Technology
+                                    </mat-option>
+                                    <mat-option [value]="' Building Contractor'">
+                                        Building Contractor
+                                    </mat-option>
+                                    <mat-option [value]="'Manufacture'">
+                                        Manufacture
+                                    </mat-option>
+                                    <mat-option [value]="'Insurance'">
+                                        Insurance
+                                    </mat-option>
+                                    <mat-option [value]="'Real Estate'">
+                                        Real Estate
+                                    </mat-option>
+                                    <mat-option [value]="'Retail'">
+                                       Retail
+                                    </mat-option>
+                                </mat-select>  
+                                <mat-error *ngIf="registerFormErrors.industrylistdet.required">
+                                    Country is required
+                                    </mat-error>                            
+                            </mat-form-field>
+                             
+                                <mat-form-field>
+                                    <input matInput placeholder="Country Name" formControlName="countryname">
+                                    <mat-error *ngIf="registerFormErrors.countryname.required">
+                                    Country Name is required
+                                    </mat-error>
+                                </mat-form-field>
+
+                <div class="subtittle">Account Details</div>
+                <mat-form-field>
+                        <input matInput placeholder="User Name" formControlName="username">
+                        <mat-error *ngIf="registerFormErrors.username.required">
+                            Username is required
+                        </mat-error>
+                    </mat-form-field>   
+                    <mat-form-field>     
+                        <input matInput type="password" placeholder="Password" formControlName="password">
+                        <mat-error *ngIf="registerFormErrors.password.required">
+                            Password is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Confrim Password" formControlName="passwordConfirm">
                         <mat-error *ngIf="registerFormErrors.passwordConfirm.required">
                             Password confirmation is required
                         </mat-error>
                         <mat-error *ngIf="registerFormErrors.passwordConfirm.passwordsNotMatch">
-                            Passwords must match
-                        </mat-error>
-                    </mat-form-field>
-                    <div class="title">Company Details</div>
-                    <mat-form-field>
-                            <input matInput placeholder="company Name" formControlName="name">
-                            <mat-error *ngIf="registerFormErrors.name.required">
-                                Name is required
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field>
-                                <input matInput placeholder="Industry Type" formControlName="name">
-                                <mat-error *ngIf="registerFormErrors.name.required">
-                                    Name is required
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field>
-                                    <input matInput placeholder="Country" formControlName="name">
-                                    <mat-error *ngIf="registerFormErrors.name.required">
-                                        Name is required
-                                    </mat-error>
-                                </mat-form-field>
-                <div class="title">Account Details</div>
-                <mat-form-field>
-                        <input matInput placeholder="User Name" formControlName="name">
-                        <mat-error *ngIf="registerFormErrors.name.required">
-                            Name is required
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field>
-                            <input matInput placeholder="password" formControlName="name">
-                            <mat-error *ngIf="registerFormErrors.name.required">
-                                Name is required
-                            </mat-error>
-                        </mat-form-field>
-                   <mat-form-field>
-                        <input matInput type="password" placeholder="Confrim Password" formControlName="password">
-                        <mat-error *ngIf="registerFormErrors.password.required">
-                            Password is required
+                            Passwords doesn't match
                         </mat-error>
                     </mat-form-field>
     
 
                     <div class="terms" fxLayout="row" fxLayoutAlign="center center">
-                            <mat-checkbox name="terms" aria-label="Accept" required>
+                            <mat-checkbox name="terms" formControlName="confirmCheckbox" aria-label="Accept" required>
                                 <span>Accept</span>
                             </mat-checkbox>
-                            <a href="#">terms and conditions</a>
+                            <!-- <a href="" ng-click="termsandconditions()">click</a> -->
+                            <a (click)="termsandconditions()">Terms and Conditions</a>
                         </div>
                 <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT"
-                        [disabled]="registerForm.invalid">
-                    CREATE AN ACCOUNT
-                </button>
+                        [disabled]="registerForm.invalid" type="submit">
+                    Register
+                </button> 
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <p style="color:green">{{result}}</p>  
+                        <p style="color:red">{{errormessage}}</p>  
+                     </div>
 
+                     <div fxLayout="row" >    
+                       <div class="title" style="visibility: hidden;">Training vedio help</div> 
+                        <div class="titleright">
+                           <a class="link" [routerLink]="'/HelpPage'">Training Video? Help</a>
+                        </div>
+                    </div> 
           </form>
-          <div fxLayout="column" fxLayoutAlign="start center">
-
-            <button mat-raised-button class="google">
+          <div class="separator">
+                <span class="text">OR</span>
+            </div>  
+               <div class="register" fxLayout="row" fxLayoutAlign="center center">
+                    <span color="accent" class="text">Register With Social Media</span>
+                </div>
+          <div fxLayout="column" fxLayoutAlign="start center">          
+            <button mat-raised-button class="google" (click)="socialSignIn('google')" >
                 Google
             </button>
-
-            <button mat-raised-button class="facebook">
+            <button mat-raised-button class="facebook" (click)="socialSignIn('facebook')">
                 Facebook
             </button>
-
+            <button mat-raised-button class="wechat">
+                    Wechat
+              </button>
         </div>
-          <div class="register" fxLayout="column" fxLayoutAlign="center center">
-              <span class="text">Already have an account?</span>
-              <a class="link" [routerLink]="'/login'">Login</a>
-          </div>
+         
 
       </div>
 

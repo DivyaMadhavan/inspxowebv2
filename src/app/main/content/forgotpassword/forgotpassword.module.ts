@@ -9,7 +9,7 @@ import { ForgotpasswordComponent } from './forgotpassword.component';
 
 const routes = [
     {
-        path     : 'forgotpassword',
+        path     : 'ForgotPassword',
         component: ForgotpasswordComponent
     }
 ];

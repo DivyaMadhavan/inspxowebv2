@@ -1,0 +1,27 @@
+<div class="page-layout blank p-24" fusePerfectScrollbar>
+    <div class="container">
+        <h1>Google Maps</h1>
+        <div [hidden]="submitted">
+            <form (ngSubmit)="onSubmit()" #locForm="ngForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="locInput"
+                           name="locInput" ([ngModel])="locInput"
+                           #search [formControl]="searchControl" required>
+                </div>
+            </form>
+        </div>
+        <h3>Location: Lat {{latitude}}, Long {{longitude}}</h3>
+        <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+          <agm-marker
+            [latitude]="latitude"
+            [longitude]="longitude"
+            [markerDraggable]="true"
+            (dragEnd)="markerDragEnd($event)"></agm-marker>
+        </agm-map>
+        <h3>{{currentAddress}}</h3>
+        <div class="center-text">
+          <button id="keyDownFunction" type="submit" class="btn btn-success"
+             routerLinkActive="active" [disabled]="!searchControl.valid">Get Started</button>
+        </div> 
+      </div>
+  </div>

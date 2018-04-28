@@ -1,0 +1,129 @@
+<div id="register" fxLayout="column" fusePerfectScrollbar>
+
+  <div id="register-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+      <div id="register-form" *fuseIfOnDom [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+          <div class="logo">
+              <img src="assets/images/logos/fuse.svg">
+          </div>
+
+          <!-- <div class="title">Register with Social Media</div> -->
+          <div fxLayout="column" >            
+            
+            <div fxLayout="row" >    
+                    <div class="lefttitle" style="visibility: hidden;">back to login</div>
+                    <span class="text">Already have an Account?</span>
+                     <a class="link" [routerLink]="'/Login'">Login</a>
+          </div> </div>
+                    <form name="registerForm" [formGroup]="registerForm" (ngSubmit)="Registerclick()" novalidate>
+
+            <div class="title">Personal Details</div>
+                
+                <mat-form-field>
+                    <input matInput placeholder="First Name" formControlName="firstname">
+                    <mat-error *ngIf="registerFormErrors.firstname.required">
+                       First Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                        <input matInput placeholder="Last Name" formControlName="lastname">
+                        <mat-error *ngIf="registerFormErrors.lastname.required">
+                            Last Name is required
+                        </mat-error>
+                    </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="Email" formControlName="email">
+                    <mat-error *ngIf="registerFormErrors.email.required">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="!registerFormErrors.email.required && registerFormErrors.email.email">
+                        Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <input matInput placeholder="Phone Number" type="number" formControlName="phonenumber">
+                    <mat-error *ngIf="registerFormErrors.phonenumber.required">
+                        Phone Number is required
+                    </mat-error>
+                </mat-form-field>
+                    <div class="title">Company Details</div>
+
+                    <mat-form-field>
+                            <input matInput placeholder="Company Name" formControlName="companyname">
+                            <mat-error *ngIf="registerFormErrors.companyname.required">
+                                Company Name is required
+                            </mat-error>
+                        </mat-form-field>
+                     
+                            <mat-form-field>
+                                <mat-select placeholder="Choose Industry" formControlName="industrylistdet">
+                                    <mat-option [value]="'Technology'">
+                                        Technology
+                                    </mat-option>
+                                    <mat-option [value]="' Building Contractor'">
+                                        Building Contractor
+                                    </mat-option>
+                                    <mat-option [value]="'Manufacture'">
+                                        Manufacture
+                                    </mat-option>
+                                    <mat-option [value]="'Insurance'">
+                                        Insurance
+                                    </mat-option>
+                                    <mat-option [value]="'Real Estate'">
+                                        Real Estate
+                                    </mat-option>
+                                    <mat-option [value]="'Retail'">
+                                       Retail
+                                    </mat-option>
+                                </mat-select>  
+                                <mat-error *ngIf="registerFormErrors.industrylistdet.required">
+                                        Industry is required
+                                    </mat-error>                            
+                            </mat-form-field>
+                             
+                                <mat-form-field>
+                                    <input matInput placeholder="Country" formControlName="countryname">
+                                    <mat-error *ngIf="registerFormErrors.countryname.required">
+                                    Country is required
+                                    </mat-error>
+                                </mat-form-field>
+
+              
+
+                    <div class="terms" fxLayout="row" fxLayoutAlign="center center">
+                            <mat-checkbox name="terms" formControlName="confirmCheckbox" aria-label="Accept" required>
+                                <span>Accept</span>
+                            </mat-checkbox>
+                            <a (click)="termsandconditions()">Terms and Conditions</a>
+                        </div>
+                <button mat-raised-button color="accent" class="submit-button" aria-label="CREATE AN ACCOUNT"
+                        [disabled]="registerForm.invalid" type="submit">
+                    Register
+                </button> 
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <p style="color:green">{{result}}</p>  
+                        <p style="color:red">{{errormessage}}</p>  
+                     </div>
+          </form>
+         
+          <div class="register" fxLayout="row" fxLayoutAlign="center center">
+              <span class="text">Sign-in using Normal Register?</span>
+              <a class="link" [routerLink]="'/Register'">Sign Up</a>
+          </div>
+          <div class="separator">
+            <span class="text">OR</span>
+        </div>   
+        <div fxLayout="row" >    
+                <div class="title" style="visibility: hidden;">Training vedio help</div> 
+                 <div class="titleright">
+                    <a class="link" [routerLink]="'/HelpPage'">Training Video? Help</a>
+                 </div>
+             </div> 
+      </div>
+
+  </div>
+
+</div>

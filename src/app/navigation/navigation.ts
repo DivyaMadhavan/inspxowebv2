@@ -20,18 +20,11 @@ export const navigation = [
                 }
             },
             {
-                'id'       : 'createtemplate',
-                'title'    : 'Create Template',               
-                'type'     : 'item',
-                'icon'     : 'lock',
-                'url'      : '/createtemplate'
-            },
-            {
-                'id'       : 'users',
+                'id'       : 'Users',
                 'title'    : 'ManageUsers',               
                 'type'     : 'item',
                 'icon'     : 'lock',
-                'url'      : '/users'
+                'url'      : '/Users'
             }
         ]
     }

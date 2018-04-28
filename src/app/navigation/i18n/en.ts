@@ -16,9 +16,17 @@ export const locale = {
              {
                 'TITLE': 'createtemplate'    
              },
-             'users':
+             'Users':
              {
-                'TITLE': 'users'    
+                'TITLE': 'Users'    
+             },
+             'test':
+             {
+                'TITLE': 'Google Map'    
+             },
+             'Resetpassword':
+             {
+                'TITLE': 'Reset Password'    
              }
 
         }

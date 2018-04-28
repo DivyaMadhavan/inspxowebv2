@@ -35,10 +35,23 @@
                 }
 
                 .title {
-                    font-size: 20px;
-                    margin: 16px 0 32px 0;
+                    font-size: 20px;                  
+                    text-align: left; 
+                    margin: 16px 36px 32px 0;
+                    float: left;
                 }
+                .subtittle
+                {
+                    font-size: 18px;
+                    margin: 16px 0 30px 0;
 
+                }
+                .titleright {
+                    font-size: 12px;                  
+                    text-align: right; 
+                    margin: 23px 0 0 0;  
+                    float: right;                                
+                }
                 form {
                     width: 100%;
                     text-align: left;
@@ -61,7 +74,7 @@
                     }
 
                     .submit-button {
-                        width: 220px;
+                        width: 192px;
                         margin: 16px auto;
                         display: block;
 
@@ -116,8 +129,10 @@
 
                 button {
 
+                 
                     &.google,
-                    &.facebook {
+                    &.facebook,
+                    &.wechat {
                         width: 192px;
                         text-transform: none;
                         color: #FFFFFF;
@@ -135,6 +150,11 @@
 
                     &.facebook {
                         background-color: rgb(63, 92, 154);
+                        margin-bottom: 8px;
+                    }
+
+                    &.wechat {
+                        background-color:#15df70;
                     }
                 }
             }

@@ -43,9 +43,11 @@ import {
     MatStepperModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
+
+//import { ManageuserService } from './services/manageuser.service';
 const routes = [
     {
-        path     : 'users',
+        path     : 'Users',
         component: UsersComponent
     }
 ];
@@ -55,7 +57,7 @@ const routes = [
         UsersComponent,
         AddusersComponent,
         ViewuserComponent,
-        UserdetailviewComponent
+        UserdetailviewComponent        
     ],
     imports     : [
         RouterModule.forChild(routes),

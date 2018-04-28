@@ -8,18 +8,15 @@
               <img src="assets/images/logos/fuse.svg">
           </div>
 
-          <div class="title">LOGIN TO YOUR ACCOUNT</div>
+          <div class="title">Inspexo</div>
 
-          <form name="loginForm" [formGroup]="loginForm" novalidate>
+          <form name="loginForm" [formGroup]="loginForm" (ngSubmit)="loginclick()" novalidate>
 
               <mat-form-field>
-                  <input matInput placeholder="Email" formControlName="email">
-                  <mat-error *ngIf="loginFormErrors.email.required">
-                      Email is required
-                  </mat-error>
-                  <mat-error *ngIf="!loginFormErrors.email.required && loginFormErrors.email.email">
-                      Please enter a valid email address
-                  </mat-error>
+                  <input matInput  type="text" placeholder="Username" [(ngModel)]="username" formControlName="username">
+                  <mat-error *ngIf="loginFormErrors.username.required">
+                    Username is required
+                  </mat-error>                
               </mat-form-field>
 
               <mat-form-field>
@@ -28,42 +25,53 @@
                       Password is required
                   </mat-error>
               </mat-form-field>
+              <mat-form-field>
+                <input matInput type="text" placeholder="Account ID" formControlName="accountid">
+                <mat-error *ngIf="loginFormErrors.accountid.required">
+                    Account ID is required
+                </mat-error>
+            </mat-form-field>
 
               <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
                    fxLayoutAlign="space-between center">
-                  <mat-checkbox class="remember-me" aria-label="Remember Me">
+                  <mat-checkbox class="remember-me"  formControlName="confirmCheckbox" aria-label="Remember Me">
                       Remember Me
                   </mat-checkbox>
 
-                  <a class="forgot-password" [routerLink]="'/forgotpassword'">
+                  <a class="forgot-password" [routerLink]="'/ForgotPassword'">
                       Forgot Password?
                   </a>
               </div>
 
               <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
-                      [disabled]="loginForm.invalid" (click)="clickMe()">
+              [disabled]="loginForm.invalid || loginForm.get('confirmCheckbox').value != true" type="submit">
                   LOGIN
               </button>
-
+              <div fxLayout="column" fxLayoutAlign="start center">
+                 <p style="color:red">{{result}}</p>  
+              </div>
           </form>
 
           <div class="separator">
               <span class="text">OR</span>
           </div>         
+          <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span color="accent" class="text">Login With Social Media</span>
+            </div>
           <div fxLayout="column" fxLayoutAlign="start center">
-
-            <button mat-raised-button class="google" (click)="socialSignIn('google')" >
-                Google
-            </button>
-
+             <button mat-raised-button class="google" (click)="socialSignIn('google')" >              
+                 Google 
+             </button>
             <button mat-raised-button class="facebook" (click)="socialSignIn('facebook')">
-                Facebook
+                 facebook
             </button>
-
+            <button mat-raised-button class="wechat">
+                  Wechat
+            </button>
         </div>
           <div class="register" fxLayout="column" fxLayoutAlign="center center">
               <span class="text">Don't have an account?</span>
-              <a class="link" [routerLink]="'/register'">Create an account</a>
+              <a class="link" [routerLink]="'/Register'">Sign Up</a>
           </div>
 
       </div>

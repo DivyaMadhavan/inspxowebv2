@@ -10,16 +10,17 @@ fxLayoutAlign.gt-sm="space-between end">
 </div> -->
 <!-- / HEADER -->
 <div class="content">
-
+        <!-- <input [(ngModel)]="firstName">
+        <input matInput  name="empName" [(ngModel)]="employee.empName">  -->
     <mat-tab-group dynamicHeight="true">
-        <mat-tab label="Add User">
+        <mat-tab *ngIf="tab==1 ||tab==3" label="Add User">
             <app-addusers></app-addusers>
         </mat-tab>
-        <mat-tab label="View User">
+        <mat-tab *ngIf="tab==1 || tab==3" label="View User">
             <app-viewuser></app-viewuser>
         </mat-tab>
-        <mat-tab label="User Detail View">
-                <app-userdetailview></app-userdetailview>
+        <mat-tab *ngIf="tab==3" label="User Detail View">
+            <app-userdetailview></app-userdetailview>
         </mat-tab>
     </mat-tab-group>
 </div>

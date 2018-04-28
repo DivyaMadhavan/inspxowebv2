@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations'
+import { Router } from '@angular/router';
+import { HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -11,13 +13,15 @@ import { fuseAnimations } from '@fuse/animations'
   animations : fuseAnimations
 })
 export class ForgotpasswordComponent implements OnInit {
-
     forgotPasswordForm: FormGroup;
     forgotPasswordFormErrors: any;
-
+    result:string;
+    errormessage:string;
     constructor(
         private fuseConfig: FuseConfigService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private http:HttpClient,
+        private router :Router
     )
     {
         this.fuseConfig.setConfig({
@@ -27,16 +31,19 @@ export class ForgotpasswordComponent implements OnInit {
                 footer    : 'none'
             }
         });
-
         this.forgotPasswordFormErrors = {
-            email: {}
+            email: {},
+            accountid:{},
+            username:{}
         };
     }
 
     ngOnInit()
     {
         this.forgotPasswordForm = this.formBuilder.group({
-            email: ['', [Validators.required, Validators.email]]
+            email: ['', [Validators.required, Validators.email]],
+            username:['', Validators.required],
+            accountid:['', Validators.required]
         });
 
         this.forgotPasswordForm.valueChanges.subscribe(() => {
@@ -64,5 +71,34 @@ export class ForgotpasswordComponent implements OnInit {
                 this.forgotPasswordFormErrors[field] = control.errors;
             }
         }
+    }
+
+    forgotpassword()
+    {
+        this.result='';
+        this.errormessage='';
+        console.log( this.forgotPasswordForm);
+        let username = this.forgotPasswordForm.value.username;
+        let emailid = this.forgotPasswordForm.value.email;
+        let accountid = this.forgotPasswordForm.value.accountid;
+        this.http.get('http://52.176.42.140:8000/login/forgotpass/', {         
+                  params: {
+                      username: username,
+                      emailid: emailid,
+                      accountid: accountid,
+                    } 
+               }).subscribe(data => { 
+                   console.log(data);
+                   let forgotpassword = JSON.stringify(data);
+                   let returnresponse =JSON.parse(forgotpassword);
+                   this.result = returnresponse.Message;          
+                  
+            },
+            err => {
+              console.log(err);
+              let forgotpassword1 = JSON.stringify(err);
+              let returnresponse1 =JSON.parse(forgotpassword1);             
+              this.errormessage =returnresponse1.error.detail;
+            })
     }
 }

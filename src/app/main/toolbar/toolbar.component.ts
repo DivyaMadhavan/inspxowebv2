@@ -19,7 +19,7 @@ export class FuseToolbarComponent
     showLoadingBar: boolean;
     horizontalNav: boolean;
     noNav: boolean;
-
+    loginname:string;
     constructor(
         private router: Router,
         private fuseConfig: FuseConfigService,
@@ -67,7 +67,9 @@ export class FuseToolbarComponent
                 'flag' : 'tr'
             }
         ];
-
+        let firstname= sessionStorage.getItem("firstname");
+       let lastname= sessionStorage.getItem("lastname");
+       this.loginname=firstname +'     '+ lastname; 
         this.selectedLanguage = this.languages[0];
 
         router.events.subscribe(
@@ -107,5 +109,11 @@ export class FuseToolbarComponent
 
         // Use the selected language for translations
         this.translate.use(lang.id);
+    }
+    logoutfn()
+    {
+      console.log("Logging out");
+      sessionStorage.clear();
+      this.router.navigate(['/Login']);  
     }
 }
