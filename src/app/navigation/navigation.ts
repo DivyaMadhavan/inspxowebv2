@@ -20,12 +20,21 @@ export const navigation = [
                 }
             },
             {
-                'id'       : 'Users',
-                'title'    : 'ManageUsers',               
-                'type'     : 'item',
-                'icon'     : 'lock',
-                'url'      : '/Users'
-            }
+                'id'       : 'User_Mangement',
+                'title'    : 'User_Mangement',
+                'translate': 'NAV.User_Mangement',
+                'type'     : 'collapse',
+                'icon'     : 'users',
+                'children' : [                   
+                    {
+                        'id'        : 'usersmgm',
+                        'title'     : 'Users',
+                        'type'      : 'item',
+                        'url'       : '/apps/usermanagement/users',
+                        'exactMatch': true
+                    }
+                ]
+           }
         ]
     }
 ];

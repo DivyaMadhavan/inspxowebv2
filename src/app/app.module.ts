@@ -25,6 +25,8 @@ import { Forgotpasswordmodule } from './main/content/forgotpassword/forgotpasswo
 import { CreatetemplateModule } from './main/content/createtemplate/createtemplate.module';
 import { resetpasswordModule } from './main/content/resetpassword/resetpassword.module';
 import { socialregisterModule } from './main/content/socialregister/socialregister.module';
+//usermanagement module 
+//import { usermanagementModule } from './main/content/apps/socialregister.module';
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon"; // <----- Here
 import { testModule } from './main/content//test/test.module';
@@ -63,6 +65,10 @@ export function getAuthServiceConfigs() {
     return config;
   }
 const appRoutes: Routes = [
+    {
+        path        : 'apps',
+        loadChildren: './main/content/apps/apps.module#inspexoAppsModule'
+    },
     {
         path      : '**',
         redirectTo: 'Login'

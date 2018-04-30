@@ -47,7 +47,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 //import { ManageuserService } from './services/manageuser.service';
 const routes = [
     {
-        path     : 'Users',
+        path     : 'useroldpage',
         component: UsersComponent
     }
 ];
