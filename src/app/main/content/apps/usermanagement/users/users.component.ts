@@ -26,7 +26,7 @@ export class UsersComponent implements OnInit
 {
     dataSource: FilesDataSource | null;
     //displayedColumns = ['id', 'image', 'name', 'category', 'price', 'quantity', 'active'];
-    displayedColumns = ['firstname','emailid', 'rolename','userstatus'];
+    displayedColumns = ['firstname','emailid', 'rolename','userstatus','view','edit','delete'];
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild('filter') filter: ElementRef;
     @ViewChild(MatSort) sort: MatSort;
@@ -79,27 +79,27 @@ export class FilesDataSource extends DataSource<any>
     }
 
     constructor(
-        private productsService: usersService,
+        private usersservicecon: usersService,
         private _paginator: MatPaginator,
         private _sort: MatSort
     )
     {
         super();
-        this.filteredData = this.productsService.products;
+        this.filteredData = this.usersservicecon.products;
     }
 
     /** Connect function called by the table to retrieve one stream containing the data to render. */
     connect(): Observable<any[]>
     {
         const displayDataChanges = [
-            this.productsService.onProductsChanged,
+            this.usersservicecon.onProductsChanged,
             this._paginator.page,
             this._filterChange,
             this._sort.sortChange
         ];
 
         return Observable.merge(...displayDataChanges).map(() => {
-            let data = this.productsService.products.slice();
+            let data = this.usersservicecon.products.slice();
 
             data = this.filterData(data);
 
@@ -138,21 +138,18 @@ export class FilesDataSource extends DataSource<any>
                 case 'id':
                     [propertyA, propertyB] = [a.id, b.id];
                     break;
-                case 'name':
+                case 'firstname':
                     [propertyA, propertyB] = [a.name, b.name];
                     break;
-                case 'categories':
+                case 'emailid':
                     [propertyA, propertyB] = [a.categories[0], b.categories[0]];
                     break;
-                case 'price':
+                case 'rolename':
                     [propertyA, propertyB] = [a.priceTaxIncl, b.priceTaxIncl];
                     break;
-                case 'quantity':
+                case 'userstatus':
                     [propertyA, propertyB] = [a.quantity, b.quantity];
-                    break;
-                case 'active':
-                    [propertyA, propertyB] = [a.active, b.active];
-                    break;
+                    break;              
             }
 
             const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

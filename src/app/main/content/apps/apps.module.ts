@@ -7,7 +7,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 
 const routes = [ 
         {
-            path        : 'users',
+            path        : 'usermanagement',
             loadChildren: './usermanagement/usermanagement.module#usermanagementModule'
         }
 ];

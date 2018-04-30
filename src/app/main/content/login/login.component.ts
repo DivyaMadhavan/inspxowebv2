@@ -178,8 +178,8 @@ export class LoginComponent implements OnInit {
   }
 }
 //the function
-function checkCheckbox(c: AbstractControl){
-    if(c.get('confirmCheckbox').value == false){
-        return false;
-    }else return true;
-} 
+// function checkCheckbox(c: AbstractControl){
+//     if(c.get('confirmCheckbox').value == false){
+//         return false;
+//     }else return true;
+// } 

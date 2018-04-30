@@ -25,7 +25,21 @@ const routes: Routes = [
         resolve  : {
            data: usersService
         }
-      }   
+    },       
+        {
+        path     : 'users/:id',
+        component: UserComponent,
+        resolve  : {
+            data: UserDetailService
+        }
+    },
+    {
+        path     : 'users/:id/:handle',
+        component: UserComponent,
+        resolve  : {
+            data: UserDetailService
+        }
+    }
 ];
 @NgModule({
     declarations: [
@@ -57,7 +71,8 @@ const routes: Routes = [
         FuseWidgetModule,
     ],
     providers   : [
-     
+        usersService,
+        UserDetailService
     ]
 })
 export class usermanagementModule

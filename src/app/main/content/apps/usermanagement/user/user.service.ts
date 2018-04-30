@@ -9,8 +9,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class UserDetailService implements Resolve<any>
 {
     routeParams: any;
-    product: any;
-    onProductChanged: BehaviorSubject<any> = new BehaviorSubject({});
+    user: any;
+    onUserchanged: BehaviorSubject<any> = new BehaviorSubject({});
 
     constructor(
         private http: HttpClient
@@ -32,7 +32,7 @@ export class UserDetailService implements Resolve<any>
         return new Promise((resolve, reject) => {
 
             Promise.all([
-                this.getProduct()
+                this.getUsers()
             ]).then(
                 () => {
                     resolve();
@@ -42,40 +42,42 @@ export class UserDetailService implements Resolve<any>
         });
     }
 
-    getProduct(): Promise<any>
+    getUsers(): Promise<any>
     {
         return new Promise((resolve, reject) => {
+           
             if ( this.routeParams.id === 'new' )
             {
-                this.onProductChanged.next(false);
+                console.log(this.routeParams.id);
+                this.onUserchanged.next(false);
                 resolve(false);
             }
             else
             {
-                this.http.get('api/e-commerce-products/' + this.routeParams.id)
-                    .subscribe((response: any) => {
-                        this.product = response;
-                        this.onProductChanged.next(this.product);
-                        resolve(response);
-                    }, reject);
+                // this.http.get('api/e-commerce-products/' + this.routeParams.id)
+                //     .subscribe((response: any) => {
+                //         this.user = response;
+                //         this.onUserchanged.next(this.user);
+                //         resolve(response);
+                //     }, reject);
             }
         });
     }
 
-    saveProduct(product)
+    saveUserdetails(user)
     {
         return new Promise((resolve, reject) => {
-            this.http.post('api/e-commerce-products/' + product.id, product)
+            this.http.post('api/e-commerce-products/' + user.id, user)
                 .subscribe((response: any) => {
                     resolve(response);
                 }, reject);
         });
     }
 
-    addProduct(product)
+    addUsers(user)
     {
         return new Promise((resolve, reject) => {
-            this.http.post('api/e-commerce-products/', product)
+            this.http.post('api/e-commerce-products/', user)
                 .subscribe((response: any) => {
                     resolve(response);
                 }, reject);

@@ -15,8 +15,8 @@
           <!-- APP TITLE -->
           <div class="logo my-12 m-sm-0"
                fxLayout="row" fxLayoutAlign="start center">
-              <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">shopping_basket</mat-icon>
-              <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Products</span>
+              <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_box</mat-icon>
+              <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Users</span>
           </div>
           <!-- / APP TITLE -->
 
@@ -24,7 +24,7 @@
           <div class="search-input-wrapper mx-12 m-md-0"
                fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
               <label for="search" class="mr-8">
-                  <mat-icon class="secondary-text">search</mat-icon>
+                  <mat-icon class="first-text">search</mat-icon>
               </label>
               <mat-form-field floatPlaceholder="never" fxFlex="1 0 auto">
                   <input id="search" matInput #filter placeholder="Search">
@@ -33,9 +33,9 @@
           <!-- / SEARCH -->
 
           <button mat-raised-button
-                  [routerLink]="'/apps/e-commerce/products/new'"
+                  [routerLink]="'/apps/usermanagement/user/new'"
                   class="add-product-button mat-white-bg my-12 mt-sm-0">
-              <span>ADD NEW PRODUCT</span>
+              <span>ADD NEW USER</span>
           </button>
 
       </div>
@@ -71,15 +71,27 @@
 
               <!-- firstname Column -->
               <ng-container cdkColumnDef="firstname">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Name</mat-header-cell>
                   <mat-cell *cdkCellDef="let product">
                       <p class="text-truncate">{{product.firstname}}</p>
                   </mat-cell>
               </ng-container>
 
+
+
+<!-- rolename Column -->
+<ng-container cdkColumnDef="rolename">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Role</mat-header-cell>
+    <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+        <p class="price text-truncate">
+            {{product.rolename}}
+        </p>
+    </mat-cell>
+</ng-container>
+              
               <!-- emailid Column -->
               <ng-container cdkColumnDef="emailid">
-                  <mat-header-cell *cdkHeaderCellDef fxHide mat-sort-header fxShow.gt-md>emailid</mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Email_ID</mat-header-cell>
                   <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-md>
                       <p class="category text-truncate">
                           {{product.emailid}}
@@ -87,19 +99,11 @@
                   </mat-cell>
               </ng-container>
 
-              <!-- rolename Column -->
-              <ng-container cdkColumnDef="rolename">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>rolename</mat-header-cell>
-                  <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
-                      <p class="price text-truncate">
-                          {{product.rolename}}
-                      </p>
-                  </mat-cell>
-              </ng-container>
+              
 
               <!-- Price Column -->
               <ng-container cdkColumnDef="userstatus">
-                <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>userstatus</mat-header-cell>
+                <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Status</mat-header-cell>
                 <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
                     <p class="price text-truncate">
                         {{product.userstatus}}
@@ -121,21 +125,34 @@
                   </mat-cell>
               </ng-container> -->
 
-              <!-- Active Column -->
-              <ng-container cdkColumnDef="active">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Active</mat-header-cell>
+              <!-- view Column -->
+              <ng-container cdkColumnDef="view">
+                  <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>View</mat-header-cell>
                   <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
-                      <mat-icon *ngIf="product.active" class="active-icon mat-green-600-bg s-16">check</mat-icon>
-                      <mat-icon *ngIf="!product.active" class="active-icon mat-red-500-bg s-16">close</mat-icon>
+                      <mat-icon>remove_red_eye</mat-icon>                   
                   </mat-cell>
               </ng-container>
+                 <!-- edit Column -->
+                 <ng-container cdkColumnDef="edit">
+                    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>Edit</mat-header-cell>
+                    <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+                        <mat-icon>mode_edit</mat-icon>                   
+                    </mat-cell>
+                </ng-container>
+                <!-- delete Column -->
+                <ng-container cdkColumnDef="delete">
+                    <mat-header-cell *cdkHeaderCellDef  fxHide fxShow.gt-xs>Delete</mat-header-cell>
+                    <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+                        <mat-icon>delete_forever</mat-icon>                   
+                    </mat-cell>
+                </ng-container>
 
               <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
 
               <mat-row *cdkRowDef="let product; columns: displayedColumns;"
                        class="product"
                        matRipple
-                       [routerLink]="'/apps/e-commerce/products/'+product.id+'/'+product.handle">
+                       [routerLink]="'/apps/usermanagement/users/'+product.id+'/'+product.handle">
               </mat-row>
 
           </mat-table>

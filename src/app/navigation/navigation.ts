@@ -21,24 +21,22 @@ export const navigation = [
                     'url'  : '/Dashboard'
                 }
             ]
-        },
-         {
-            'id'       : 'usermangement',
-            'title'    : 'usermangement',
+          },
+          {
+            'id'       : 'usermanagement',
+            'title'    : 'usermanagement',
             'translate': 'Manage User',
             'type'     : 'collapse',
-            'icon'     : 'shopping_cart',
-            'children' : [
-               
+            'icon'     : 'account_circle',
+            'children' : [               
                 {
                     'id'        : 'users',
                     'title'     : 'Users',
                     'type'      : 'item',
-                    'url'       : '/apps/usermangement/users',
-                    'exactMatch': true
+                    'url'       : '/apps/usermanagement/users'                   
                 }
             ]
-        },
-
-    }    
+        }
+     ]
+    }
 ];
