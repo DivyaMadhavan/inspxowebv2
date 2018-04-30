@@ -45,8 +45,7 @@ export class LoginComponent implements OnInit {
          
           password: {},
           username :{},
-          accountid:{},
-          confirmCheckbox:{}
+          accountid:{}
       };
   }
   ngOnInit()
@@ -56,9 +55,8 @@ export class LoginComponent implements OnInit {
       this.loginForm = this.formBuilder.group({        
           password: ['', Validators.required],
           username: ['', Validators.required],
-          accountid: ['', Validators.required],
-          confirmCheckbox:['',[Validators.required]]
-      },{validator: checkCheckbox}); 
+          accountid: ['', Validators.required]       
+      }); 
 
       this.loginForm.valueChanges.subscribe(() => {
           this.onLoginFormValuesChanged();

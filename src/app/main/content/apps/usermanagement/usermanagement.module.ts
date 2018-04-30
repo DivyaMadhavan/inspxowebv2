@@ -20,7 +20,7 @@ import { UserDetailService } from './user/user.service';
 
 const routes: Routes = [
         {
-        path     : 'usersmgm',
+        path     : 'users',
         component: UsersComponent,
         resolve  : {
            data: usersService

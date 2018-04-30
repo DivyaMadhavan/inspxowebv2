@@ -1,40 +1,44 @@
 export const navigation = [
-    {
-        'id'      : 'applications',
-        'title'   : 'Applications',
-        'translate': 'NAV.APPLICATIONS',
-        'type'    : 'group',
-        'children': [
-            {
-                'id'   : 'Dashboard',
-                'title': 'Dashboard',
-                'translate': 'NAV.Dashboard.TITLE',
-                'type' : 'item',
-                'icon' : 'email',
-                'url'  : '/Dashboard',
-                'badge': {
-                    'title': 25,
-                    'translate': 'NAV.Dashboard.BADGE',
-                    'bg'   : '#F44336',
-                    'fg'   : '#FFFFFF'
+    { 
+
+     'id'       : 'applications',
+    'title'    : 'Applications',
+    'translate': 'NAV.APPLICATIONS',
+    'type'     : 'group',
+    'icon'     : 'apps',
+    'children' : [
+        {
+            'id'       : 'dashboards',
+            'title'    : 'Dashboards',
+            'translate': 'DASHBOARDS',
+            'type'     : 'collapse',
+            'icon'     : 'dashboard',
+            'children' : [
+                {
+                    'id'   : 'analytics',
+                    'title': 'DASHBOARD',
+                    'type' : 'item',
+                    'url'  : '/Dashboard'
                 }
-            },
-            {
-                'id'       : 'User_Mangement',
-                'title'    : 'User_Mangement',
-                'translate': 'NAV.User_Mangement',
-                'type'     : 'collapse',
-                'icon'     : 'users',
-                'children' : [                   
-                    {
-                        'id'        : 'usersmgm',
-                        'title'     : 'Users',
-                        'type'      : 'item',
-                        'url'       : '/apps/usermanagement/users',
-                        'exactMatch': true
-                    }
-                ]
-           }
-        ]
-    }
+            ]
+        },
+         {
+            'id'       : 'usermangement',
+            'title'    : 'usermangement',
+            'translate': 'Manage User',
+            'type'     : 'collapse',
+            'icon'     : 'shopping_cart',
+            'children' : [
+               
+                {
+                    'id'        : 'users',
+                    'title'     : 'Users',
+                    'type'      : 'item',
+                    'url'       : '/apps/usermangement/users',
+                    'exactMatch': true
+                }
+            ]
+        },
+
+    }    
 ];

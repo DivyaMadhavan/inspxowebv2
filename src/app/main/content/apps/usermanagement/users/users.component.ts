@@ -25,21 +25,21 @@ import { usersService } from './users.service';
 export class UsersComponent implements OnInit
 {
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'image', 'name', 'category', 'price', 'quantity', 'active'];
-
+    //displayedColumns = ['id', 'image', 'name', 'category', 'price', 'quantity', 'active'];
+    displayedColumns = ['firstname','emailid', 'rolename','userstatus'];
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild('filter') filter: ElementRef;
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(
-        private productsService: usersService
+        private viewuserService: usersService
     )
     {
     }
 
     ngOnInit()
     {
-        this.dataSource = new FilesDataSource(this.productsService, this.paginator, this.sort);
+        this.dataSource = new FilesDataSource(this.viewuserService, this.paginator, this.sort);
         Observable.fromEvent(this.filter.nativeElement, 'keyup')
                   .debounceTime(150)
                   .distinctUntilChanged()
