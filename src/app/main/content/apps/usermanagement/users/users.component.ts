@@ -13,33 +13,32 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
-
 import { usersService } from './users.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
-    animations : fuseAnimations
+  styleUrls: ['./users.component.scss'],  
+  animations   : fuseAnimations
 })
-export class UsersComponent implements OnInit
-{
+export class UsersComponent implements OnInit {
+
     dataSource: FilesDataSource | null;
-    //displayedColumns = ['id', 'image', 'name', 'category', 'price', 'quantity', 'active'];
-    displayedColumns = ['firstname','emailid', 'rolename','userstatus','view','edit','delete'];
+    displayedColumns = ['id', 'image', 'name', 'category', 'price', 'quantity', 'active'];
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild('filter') filter: ElementRef;
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(
-        private viewuserService: usersService
+        private productsService: usersService
     )
     {
     }
 
     ngOnInit()
     {
-        this.dataSource = new FilesDataSource(this.viewuserService, this.paginator, this.sort);
+        this.dataSource = new FilesDataSource(this.productsService, this.paginator, this.sort);
         Observable.fromEvent(this.filter.nativeElement, 'keyup')
                   .debounceTime(150)
                   .distinctUntilChanged()
@@ -79,27 +78,27 @@ export class FilesDataSource extends DataSource<any>
     }
 
     constructor(
-        private usersservicecon: usersService,
+        private productsService: usersService,
         private _paginator: MatPaginator,
         private _sort: MatSort
     )
     {
         super();
-        this.filteredData = this.usersservicecon.products;
+        this.filteredData = this.productsService.products;
     }
 
     /** Connect function called by the table to retrieve one stream containing the data to render. */
     connect(): Observable<any[]>
     {
         const displayDataChanges = [
-            this.usersservicecon.onProductsChanged,
+            this.productsService.onProductsChanged,
             this._paginator.page,
             this._filterChange,
             this._sort.sortChange
         ];
 
         return Observable.merge(...displayDataChanges).map(() => {
-            let data = this.usersservicecon.products.slice();
+            let data = this.productsService.products.slice();
 
             data = this.filterData(data);
 
@@ -138,18 +137,21 @@ export class FilesDataSource extends DataSource<any>
                 case 'id':
                     [propertyA, propertyB] = [a.id, b.id];
                     break;
-                case 'firstname':
+                case 'name':
                     [propertyA, propertyB] = [a.name, b.name];
                     break;
-                case 'emailid':
+                case 'categories':
                     [propertyA, propertyB] = [a.categories[0], b.categories[0]];
                     break;
-                case 'rolename':
+                case 'price':
                     [propertyA, propertyB] = [a.priceTaxIncl, b.priceTaxIncl];
                     break;
-                case 'userstatus':
+                case 'quantity':
                     [propertyA, propertyB] = [a.quantity, b.quantity];
-                    break;              
+                    break;
+                case 'active':
+                    [propertyA, propertyB] = [a.active, b.active];
+                    break;
             }
 
             const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
@@ -163,4 +165,3 @@ export class FilesDataSource extends DataSource<any>
     {
     }
 }
-

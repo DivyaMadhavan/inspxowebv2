@@ -24,7 +24,7 @@ import { Location } from '@angular/common';
   encapsulation: ViewEncapsulation.None,
   animations   : fuseAnimations
 })
-export class UserComponent implements OnInit,OnDestroy {
+export class UserComponent implements OnInit {
     product = new User();
     onProductChanged: Subscription;
     pageType: string;
@@ -43,7 +43,7 @@ export class UserComponent implements OnInit,OnDestroy {
     {
         // Subscribe to update product on changes
         this.onProductChanged =
-            this.productService.onUserchanged
+            this.productService.onProductChanged
                 .subscribe(product => {
 
                     if ( product )
@@ -70,9 +70,9 @@ export class UserComponent implements OnInit,OnDestroy {
     {
         return this.formBuilder.group({
             id              : [this.product.id],
-            firstname            : [this.product.firstname],
+            name            : [this.product.name],
             handle          : [this.product.handle],
-            emailid     : [this.product.emailid],
+            description     : [this.product.description],
             categories      : [this.product.categories],
             tags            : [this.product.tags],
             images          : [this.product.images],
@@ -99,7 +99,7 @@ export class UserComponent implements OnInit,OnDestroy {
             .then(() => {
 
                 // Trigger the subscription with new data
-                this.productService.onUserchanged.next(data);
+                this.productService.onProductChanged.next(data);
 
                 // Show the success message
                 this.snackBar.open('Product saved', 'OK', {
@@ -117,7 +117,7 @@ export class UserComponent implements OnInit,OnDestroy {
             .then(() => {
 
                 // Trigger the subscription with new data
-                this.productService.onUserchanged.next(data);
+                this.productService.onProductChanged.next(data);
 
                 // Show the success message
                 this.snackBar.open('Product added', 'OK', {
@@ -126,7 +126,8 @@ export class UserComponent implements OnInit,OnDestroy {
                 });
 
                 // Change the location with new one
-                this.location.go('apps/usermanagement/users/' + this.product.id + '/' + this.product.handle);
+                this.location.go('apps/e-commerce/products/' + this.product.id + '/' + this.product.handle);
             });
     }
 }
+

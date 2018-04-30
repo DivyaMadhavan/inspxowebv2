@@ -5,9 +5,9 @@ import { FuseUtils } from '@fuse/utils';
 export class User
 {
     id: string;
-    firstname: string;
+    name: string;
     handle: string;
-    emailid: string;
+    description: string;
     categories: string[];
     tags: string[];
     images: {
@@ -33,9 +33,9 @@ export class User
     {
         product = product || {};
         this.id = product.id || FuseUtils.generateGUID();
-        this.firstname = product.firstname || '';
-        this.handle = product.handle || FuseUtils.handleize(this.id);
-        this.emailid = product.emailid || '';
+        this.name = product.name || '';
+        this.handle = product.handle || FuseUtils.handleize(this.name);
+        this.description = product.description || '';
         this.categories = product.categories || [];
         this.tags = product.tags || [];
         this.images = product.images || [];
@@ -109,3 +109,5 @@ export class User
         }
     }
 }
+
+   

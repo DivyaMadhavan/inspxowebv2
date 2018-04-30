@@ -9,8 +9,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class UserDetailService implements Resolve<any>
 {
     routeParams: any;
-    user: any;
-    onUserchanged: BehaviorSubject<any> = new BehaviorSubject({});
+    users: any;
+    onProductChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
     constructor(
         private http: HttpClient
@@ -49,17 +49,17 @@ export class UserDetailService implements Resolve<any>
             if ( this.routeParams.id === 'new' )
             {
                 console.log(this.routeParams.id);
-                this.onUserchanged.next(false);
+                this.onProductChanged.next(false);
                 resolve(false);
             }
             else
             {
-                // this.http.get('api/e-commerce-products/' + this.routeParams.id)
-                //     .subscribe((response: any) => {
-                //         this.user = response;
-                //         this.onUserchanged.next(this.user);
-                //         resolve(response);
-                //     }, reject);
+                this.http.get('api/e-commerce-products/' + this.routeParams.id)
+                    .subscribe((response: any) => {
+                        this.users = response;
+                        this.onProductChanged.next(this.users);
+                        resolve(response);
+                    }, reject);
             }
         });
     }

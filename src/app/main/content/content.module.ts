@@ -11,7 +11,6 @@ import { FuseContentComponent } from 'app/main/content/content.component';
 @NgModule({
     declarations: [
         FuseContentComponent
-              
     ],
     imports     : [
         RouterModule,

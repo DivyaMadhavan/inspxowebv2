@@ -15,7 +15,7 @@
           <!-- APP TITLE -->
           <div class="logo my-12 m-sm-0"
                fxLayout="row" fxLayoutAlign="start center">
-              <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_box</mat-icon>
+              <mat-icon class="logo-icon mr-16" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">shopping_basket</mat-icon>
               <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Users</span>
           </div>
           <!-- / APP TITLE -->
@@ -24,7 +24,7 @@
           <div class="search-input-wrapper mx-12 m-md-0"
                fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
               <label for="search" class="mr-8">
-                  <mat-icon class="first-text">search</mat-icon>
+                  <mat-icon class="secondary-text">search</mat-icon>
               </label>
               <mat-form-field floatPlaceholder="never" fxFlex="1 0 auto">
                   <input id="search" matInput #filter placeholder="Search">
@@ -33,9 +33,9 @@
           <!-- / SEARCH -->
 
           <button mat-raised-button
-                  [routerLink]="'/apps/usermanagement/user/new'"
+                  [routerLink]="'/apps/e-commerce/products/new'"
                   class="add-product-button mat-white-bg my-12 mt-sm-0">
-              <span>ADD NEW USER</span>
+              <span>ADD NEW PRODUCT</span>
           </button>
 
       </div>
@@ -57,102 +57,76 @@
                       <p class="text-truncate">{{product.id}}</p>
                   </mat-cell>
               </ng-container>
-
             
-              <!-- <ng-container cdkColumnDef="image">
-                  <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
-                  <mat-cell *cdkCellDef="let product">
-                      <img class="product-image"
-                           *ngIf="product.images[0]" [alt]="product.name"
-                           [src]="product.images[0].url"/>
-                      <img *ngIf="!product.images[0]" [src]="'assets/images/ecommerce/product-image-placeholder.png'">
-                  </mat-cell>
-              </ng-container> -->
+           <!-- firstname Column -->
+           <ng-container cdkColumnDef="firstname">
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>Name</mat-header-cell>
+            <mat-cell *cdkCellDef="let product">
+                <p class="text-truncate">{{product.firstname}}</p>
+            </mat-cell>
+        </ng-container>
+          <!-- rolename Column -->
+          <ng-container cdkColumnDef="rolename">
+              <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Role</mat-header-cell>
+              <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+                  <p class="price text-truncate">
+                      {{product.rolename}}
+                  </p>
+              </mat-cell>
+          </ng-container>
+        
+        <!-- emailid Column -->
+        <ng-container cdkColumnDef="emailid">
+            <mat-header-cell *cdkHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Email_ID</mat-header-cell>
+            <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-md>
+                <p class="category text-truncate">
+                    {{product.emailid}}
+                </p>
+            </mat-cell>
+        </ng-container>
 
-              <!-- firstname Column -->
-              <ng-container cdkColumnDef="firstname">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Name</mat-header-cell>
-                  <mat-cell *cdkCellDef="let product">
-                      <p class="text-truncate">{{product.firstname}}</p>
-                  </mat-cell>
-              </ng-container>
+        
 
+        <!-- Price Column -->
+        <ng-container cdkColumnDef="userstatus">
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Status</mat-header-cell>
+          <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+              <p class="price text-truncate">
+                  {{product.userstatus}}
+              </p>
+          </mat-cell>
+      </ng-container>
+       
 
+        <!-- view Column -->
+        <ng-container cdkColumnDef="view">
+            <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>View</mat-header-cell>
+            <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+                <mat-icon>remove_red_eye</mat-icon>                   
+            </mat-cell>
+        </ng-container>
+           <!-- edit Column -->
+           <ng-container cdkColumnDef="edit">
+              <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>Edit</mat-header-cell>
+              <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+                  <mat-icon>mode_edit</mat-icon>                   
+              </mat-cell>
+          </ng-container>
+          <!-- delete Column -->
+          <ng-container cdkColumnDef="delete">
+              <mat-header-cell *cdkHeaderCellDef  fxHide fxShow.gt-xs>Delete</mat-header-cell>
+              <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+                  <mat-icon>delete_forever</mat-icon>                   
+              </mat-cell>
+          </ng-container>
 
-<!-- rolename Column -->
-<ng-container cdkColumnDef="rolename">
-    <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Role</mat-header-cell>
-    <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
-        <p class="price text-truncate">
-            {{product.rolename}}
-        </p>
-    </mat-cell>
-</ng-container>
-              
-              <!-- emailid Column -->
-              <ng-container cdkColumnDef="emailid">
-                  <mat-header-cell *cdkHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Email_ID</mat-header-cell>
-                  <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-md>
-                      <p class="category text-truncate">
-                          {{product.emailid}}
-                      </p>
-                  </mat-cell>
-              </ng-container>
-
-              
-
-              <!-- Price Column -->
-              <ng-container cdkColumnDef="userstatus">
-                <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Status</mat-header-cell>
-                <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
-                    <p class="price text-truncate">
-                        {{product.userstatus}}
-                    </p>
-                </mat-cell>
-            </ng-container>
-              <!-- Quantity Column
-              <ng-container cdkColumnDef="userstatus">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>userstatus</mat-header-cell>
-                  <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-sm>
-
-                      <span class="quantity-indicator text-truncate"
-                            [ngClass]="{'mat-red-500-bg':product.quantity <= 5, 'mat-amber-500-bg':product.quantity > 5 && product.quantity <= 25,'mat-green-600-bg':product.quantity > 25}">
-                      </span>
-                      <span>
-                          {{product.quantity}}
-                      </span>
-
-                  </mat-cell>
-              </ng-container> -->
-
-              <!-- view Column -->
-              <ng-container cdkColumnDef="view">
-                  <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>View</mat-header-cell>
-                  <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
-                      <mat-icon>remove_red_eye</mat-icon>                   
-                  </mat-cell>
-              </ng-container>
-                 <!-- edit Column -->
-                 <ng-container cdkColumnDef="edit">
-                    <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>Edit</mat-header-cell>
-                    <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
-                        <mat-icon>mode_edit</mat-icon>                   
-                    </mat-cell>
-                </ng-container>
-                <!-- delete Column -->
-                <ng-container cdkColumnDef="delete">
-                    <mat-header-cell *cdkHeaderCellDef  fxHide fxShow.gt-xs>Delete</mat-header-cell>
-                    <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
-                        <mat-icon>delete_forever</mat-icon>                   
-                    </mat-cell>
-                </ng-container>
 
               <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
 
               <mat-row *cdkRowDef="let product; columns: displayedColumns;"
                        class="product"
                        matRipple
-                       [routerLink]="'/apps/usermanagement/users/'+product.id+'/'+product.handle">
+                       [routerLink]="'/apps/e-commerce/products/'+product.id+'/'+product.handle">
               </mat-row>
 
           </mat-table>

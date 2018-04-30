@@ -28,7 +28,7 @@ export class usersService implements Resolve<any>
         return new Promise((resolve, reject) => {
 
             Promise.all([
-                this.getUserSummaryview()
+                this.getProducts()
             ]).then(
                 () => {
                     resolve();
@@ -38,14 +38,14 @@ export class usersService implements Resolve<any>
         });
     }
 
-    getUserSummaryview(): Promise<any>
+    getProducts(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this.http.get('http://52.176.42.140:8000/user/sumviewuser/')
+            this.http.get('http://52.176.42.140:8000/user/sumviewuser')
                 .subscribe((response: any) => {
                     this.products = response;
                     console.log(this.products)
-                    //this.onProductsChanged.next(this.products);
+                    this.onProductsChanged.next(this.products);
                     resolve(response);
                 }, reject);
         });
