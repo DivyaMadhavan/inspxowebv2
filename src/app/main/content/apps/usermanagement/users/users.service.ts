@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
-export class usersService implements Resolve<any>
+export class ManageuserService implements Resolve<any>
 {
     products: any[];
     onProductsChanged: BehaviorSubject<any> = new BehaviorSubject({});
@@ -41,7 +41,7 @@ export class usersService implements Resolve<any>
     getProducts(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this.http.get('http://52.176.42.140:8000/user/sumviewuser')
+            this.http.get('http://52.176.42.140:8000/user/sumviewuser/')
                 .subscribe((response: any) => {
                     this.products = response;
                     console.log(this.products)

@@ -30,9 +30,9 @@ import { socialregisterModule } from './main/content/socialregister/socialregist
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon"; // <----- Here
 import { testModule } from './main/content//test/test.module';
-import { usersModule } from './main/content/users/users.module';
+//import { usersModule } from './main/content/users/users.module';
 import { UserService } from './main/content/sample/user.service';
-import { ManageuserService } from './main/content/users/services/manageuser.service';
+//import { ManageuserService } from './main/content/users/services/manageuser.service';
 import { FormsModule, ReactiveFormsModule,NgModel  } from '@angular/forms';
 
 
@@ -104,7 +104,7 @@ const appRoutes: Routes = [
          // Social media login
         SocialLoginModule,
         testModule,
-        usersModule,HelpPageModule,
+        HelpPageModule,
         FormsModule, ReactiveFormsModule ,MatButtonModule, MatIconModule
     ],
     providers: [        
@@ -112,8 +112,7 @@ const appRoutes: Routes = [
           provide: AuthServiceConfig,
           useFactory: getAuthServiceConfigs
         },
-         UserService,
-         ManageuserService
+         UserService         
       ],
     bootstrap   : [
         AppComponent

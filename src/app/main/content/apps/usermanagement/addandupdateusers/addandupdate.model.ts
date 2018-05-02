@@ -2,9 +2,9 @@ import { MatChipInputEvent } from '@angular/material';
 
 import { FuseUtils } from '@fuse/utils';
 
-export class User
+export class Product
 {
-    id: string;
+    id: number;
     name: string;
     handle: string;
     description: string;
@@ -16,41 +16,43 @@ export class User
         url: string,
         type: string
     }[];
-    priceTaxExcl: number;
-    priceTaxIncl: number;
-    taxRate: number;
-    comparedPrice: number;
-    quantity: number;
-    sku: string;
-    width: string;
-    height: string;
-    depth: string;
-    weight: string;
-    extraShippingFee: number;
-    active: boolean;
-
+   
+    //usertable fields
+    accountid:number;
+    firstname: string;
+    lastname:string;    
+    emailid:string;
+    rolename:string;
+    username:string;
+    password:string;
+    organization:string;
+    userstatus:string;
+    address:string;
+    usertype:string;
+    phone :number;
     constructor(product?)
     {
         product = product || {};
-        this.id = product.id || FuseUtils.generateGUID();
+        this.id = product.id;
         this.name = product.name || '';
         this.handle = product.handle || FuseUtils.handleize(this.name);
         this.description = product.description || '';
         this.categories = product.categories || [];
         this.tags = product.tags || [];
-        this.images = product.images || [];
-        this.priceTaxExcl = product.priceTaxExcl || 0;
-        this.priceTaxIncl = product.priceTaxIncl || 0;
-        this.taxRate = product.taxRate || 0;
-        this.comparedPrice = product.comparedPrice || 0;
-        this.quantity = product.quantity || 0;
-        this.sku = product.sku || 0;
-        this.width = product.width || 0;
-        this.height = product.height || 0;
-        this.depth = product.depth || 0;
-        this.weight = product.weight || 0;
-        this.extraShippingFee = product.extraShippingFee || 0;
-        this.active = product.active || true;
+        this.images = product.images || [];     
+        //user details table fields
+        this.accountid =product.accountid;
+        this.firstname = product.firstname;
+        this.lastname = product.firstname;
+        this.emailid = product.emailid;
+        this.rolename = product.rolename;
+        this.username = product.username;
+        this.password = product.password;
+        this.organization = product.organization;
+        this.address = product.address;
+        this.usertype = product.usertype;
+        this.userstatus = product.userstatus;
+        this.phone = product.phone;
     }
 
     addCategory(event: MatChipInputEvent): void
@@ -109,5 +111,3 @@ export class User
         }
     }
 }
-
-   

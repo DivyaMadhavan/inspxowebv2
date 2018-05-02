@@ -9,28 +9,42 @@ import { AgmCoreModule } from '@agm/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
-
-
 //import { FuseAngularMaterialModule } from './components/angular-material/angular-material.module';
 
 import { UsersComponent } from './users/users.component';
-import { usersService } from './users/users.service';
-import { UserComponent } from './user/user.component';
-import { UserDetailService } from './user/user.service';
+import { ManageuserService } from './users/users.service';
+import { AddandupdateusersComponent } from './addandupdateusers/addandupdateusers.component';
+//import { UserComponent } from './user/user.component';
+import { addandupdateService } from './addandupdateusers/addandupdate.service';
 
 const routes: Routes = [
         {
         path     : 'users',
         component: UsersComponent,
         resolve  : {
-           data: usersService
+           data: ManageuserService
+        }
+    },
+    {
+        path     : 'users/:id',
+        component: AddandupdateusersComponent,
+        resolve  : {
+            data: addandupdateService
+        }
+    },
+    {
+        path     : 'users/:id/:handle',
+        component: AddandupdateusersComponent,
+        resolve  : {
+            data: addandupdateService
         }
     }
 ];
 @NgModule({
     declarations: [
         UsersComponent,
-        UserComponent
+        AddandupdateusersComponent
+        
     ],
     imports     : [
         RouterModule.forChild(routes),
@@ -57,8 +71,7 @@ const routes: Routes = [
         FuseWidgetModule,
     ],
     providers   : [
-        usersService,
-        UserDetailService
+        ManageuserService,addandupdateService        
     ]
 })
 export class usermanagementModule

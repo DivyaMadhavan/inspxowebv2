@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+
 @Injectable()
-export class UserDetailService implements Resolve<any>
+export class addandupdateService implements Resolve<any>
 {
     routeParams: any;
-    users: any;
+    product: any;
     onProductChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
     constructor(
@@ -32,7 +33,7 @@ export class UserDetailService implements Resolve<any>
         return new Promise((resolve, reject) => {
 
             Promise.all([
-                this.getUsers()
+                this.getProduct()
             ]).then(
                 () => {
                     resolve();
@@ -42,42 +43,60 @@ export class UserDetailService implements Resolve<any>
         });
     }
 
-    getUsers(): Promise<any>
+    getProduct(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-           
             if ( this.routeParams.id === 'new' )
             {
-                console.log(this.routeParams.id);
                 this.onProductChanged.next(false);
                 resolve(false);
             }
             else
             {
-                this.http.get('api/e-commerce-products/' + this.routeParams.id)
+                console.log("getting user info");
+                console.log(this.routeParams.id);
+                this.http.get('http://52.176.42.140:8000/user/detviewuser/' + this.routeParams.id)
                     .subscribe((response: any) => {
-                        this.users = response;
-                        this.onProductChanged.next(this.users);
+                        this.product = response;
+                        this.onProductChanged.next(this.product);
                         resolve(response);
                     }, reject);
             }
         });
     }
 
-    saveUserdetails(user)
+    saveProduct(product)
     {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        console.log(product.id);
+        const httpOptions = {
+          headers: headers,
+        };   
         return new Promise((resolve, reject) => {
-            this.http.post('api/e-commerce-products/' + user.id, user)
+            this.http.put('http://52.176.42.140:8000/user/updateuser/' + 53,{
+            "firstname":"safaf",
+            "emailid":"divyamrelsysin",
+            "rolename":"fdsf",
+            "lastname":"affds",
+            "username":"dfsdf",
+            "password":"sdfds",
+            "organization":"sgdsf",
+            "address":"aasdfdfsa","userstatus":"Active","phone":"1234567890"},httpOptions)
                 .subscribe((response: any) => {
                     resolve(response);
                 }, reject);
         });
     }
-
-    addUsers(user)
+    addProduct(product)
     {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+      
+        const httpOptions = {
+          headers: headers,
+        };         
+        console.log(JSON.stringify(product));
         return new Promise((resolve, reject) => {
-            this.http.post('api/e-commerce-products/', user)
+            this.http.post('http://52.176.42.140:8000/user/adduser/',JSON.stringify(product),httpOptions)
                 .subscribe((response: any) => {
                     resolve(response);
                 }, reject);

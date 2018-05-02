@@ -13,7 +13,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
-import { usersService } from './users.service';
+import { ManageuserService } from './users.service';
 
 @Component({
   selector: 'app-users',
@@ -24,14 +24,14 @@ import { usersService } from './users.service';
 export class UsersComponent implements OnInit {
 
     dataSource: FilesDataSource | null;
-    displayedColumns = ['id', 'image', 'name', 'category', 'price', 'quantity', 'active'];
+    displayedColumns = ['firstname','emailid', 'rolename','userstatus','view','edit','delete'];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild('filter') filter: ElementRef;
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(
-        private productsService: usersService
+        private productsService: ManageuserService
     )
     {
     }
@@ -78,7 +78,7 @@ export class FilesDataSource extends DataSource<any>
     }
 
     constructor(
-        private productsService: usersService,
+        private productsService: ManageuserService,
         private _paginator: MatPaginator,
         private _sort: MatSort
     )
