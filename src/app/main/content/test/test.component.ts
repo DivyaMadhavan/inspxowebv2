@@ -39,15 +39,34 @@ export class TestComponent implements OnInit {
   
   ngOnInit() {
     //set google maps defaults
-    this.zoom = 4;
-    this.latitude = 39.8282;
-    this.longitude = -98.5795;
-    
+    // this.zoom = 4;
+    // this.latitude = 39.8282;
+    // this.longitude = -98.5795;
+  
+     
+        navigator.geolocation.getCurrentPosition((position) => {     
+          this.latitude = position.coords.latitude;
+          this.longitude = position.coords.longitude;      
+          this.zoom = 12;
+          this.geoCoder.geocode({'location': {lat: position.coords.latitude, lng: position.coords.longitude }}, (results, status) => {
+           // console.log(results);          
+            if (status === 'OK') {
+              console.log(results[0]);
+              if (results[0]) {
+                //this.zoom = 12;           
+                this.currentAddress=results[0].formatted_address;        
+              } 
+            }
+          });
+         // console.log(position);
+        });
+       // let latlng = {lat: this.latitude, lng: this.longitude};
+       
     //create search FormControl
     this.searchControl = new FormControl();
     
     //set current position
-    this.setCurrentPosition();
+   // this.setCurrentPosition();
     
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
@@ -69,7 +88,8 @@ export class TestComponent implements OnInit {
           
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
+          this.longitude = place.geometry.location.lng(); 
+          this.currentAddress =place[0].formatted_address;
           this.zoom = 12;
         });
       });
@@ -78,9 +98,13 @@ export class TestComponent implements OnInit {
   
   markerDragEnd($event: MouseEvent) {
     console.log($event);
-    this.latitude = 13.00;
-    this.longitude = 25.201;
-    this.geoCoder.geocode({'location': {lat: this.latitude, lng: this.longitude }}, (results, status) => {
+    let locationdetails = JSON.stringify($event);
+    let details = JSON.parse(locationdetails);
+    console.log(details.coords.lat);
+    console.log(details.coords.lng);
+    //this.latitude = 13.00;
+    //this.longitude = 25.201;
+    this.geoCoder.geocode({'location': {lat: details.coords.lat, lng: details.coords.lng }}, (results, status) => {
       console.log(results);
       console.log(status);
       if (status === 'OK') {
@@ -101,14 +125,6 @@ export class TestComponent implements OnInit {
     });
   }
   
-  private setCurrentPosition() {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 12;
-      });
-    }
-  }
+
 }
 

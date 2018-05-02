@@ -9,14 +9,14 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
 import { Subscription } from 'rxjs/Subscription';
-
+import {MatTableDataSource,MatDialog} from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
 
 import { Product } from './addandupdate.model';
 import { addandupdateService } from './addandupdate.service';
 import { Location } from '@angular/common';
-
+import { MapComponent } from '../../usermanagement/map/map.component';
 @Component({
   selector: 'app-addandupdateusers',
   templateUrl: './addandupdateusers.component.html',
@@ -29,16 +29,19 @@ export class AddandupdateusersComponent implements OnInit {
   onProductChanged: Subscription;
   pageType: string;
   productForm: FormGroup;
-
+  dialogRef: any;
+  mapaddress : string;
   constructor(
       private productService: addandupdateService,
       private formBuilder: FormBuilder,
       public snackBar: MatSnackBar,
-      private location: Location
+      private location: Location,public dialog: MatDialog
   )
   {
+    let address = sessionStorage.getItem("mappaddress");
+    console.log(address);
+    this.mapaddress = address;
   }
-
   ngOnInit()
   {
       // Subscribe to update product on changes
@@ -70,7 +73,7 @@ export class AddandupdateusersComponent implements OnInit {
   {
       return this.formBuilder.group({
           Accountid             : [222],
-          id : [this.product.id],
+          id                    : [this.product.id],
           firstname             : [this.product.firstname],
           emailid               :  [this.product.emailid],       
           rolename              : [ this.product.rolename],
@@ -78,7 +81,7 @@ export class AddandupdateusersComponent implements OnInit {
           username              : [ this.product.username],
           password              : [ this.product.password],
           organization          : [ this.product.organization],
-          address               : [  this.product.address],
+          address               : [ this.mapaddress],
           //usertype              : [  this.product.usertype],
           userstatus            : [ this.product.userstatus],
           phone                 : [ this.product.phone]  
@@ -113,6 +116,26 @@ export class AddandupdateusersComponent implements OnInit {
             });
           }
         );
+  }
+  openmap()
+  {
+      this.dialogRef = this.dialog.open(MapComponent, {
+          panelClass: 'contact-form-dialog',
+          data      : {
+              action: 'new'
+          }
+      });
+  
+      this.dialogRef.afterClosed()
+          .subscribe((response: FormGroup) => {
+              if ( !response )
+              {
+                  return;
+              }
+  
+              //this.contactsService.updateContact(response.getRawValue());
+  
+          });
   }
   saveProduct()
   {

@@ -1,0 +1,53 @@
+<div class="dialog-content-wrapper">
+  <mat-toolbar matDialogTitle class="mat-accent m-0">
+      <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Location Info</span>
+          <button mat-button class="mat-icon-button"
+                  (click)="dialogRef.close()"
+                  aria-label="Close dialog">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-toolbar-row>    
+  </mat-toolbar>
+
+  <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+
+      <form [formGroup]="contactForm">
+            <div [hidden]="submitted">
+                    <form (ngSubmit)="onSubmit()" #locForm="ngForm">
+                            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field class="w-40-p">
+                                    <input matInput type="text"  class="input-controls"  id="locInput"
+                                   name="locInput" ([ngModel])="locInput"
+                                   #search [formControl]="searchControl"  type="text" placeholder="Search location">
+                                </mat-form-field> 
+                                <div class="w-10-p"></div>
+                                <div class="w-40-p">
+                                    <strong> Current Address:</strong>{{currentAddress}}
+                                </div>   
+</div>
+                    </form>
+                </div>            
+                <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                  <agm-marker
+                    [latitude]="latitude"
+                    [longitude]="longitude"
+                    [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd($event)"></agm-marker>
+                </agm-map>
+                <h3>Location: Lat {{latitude}}, Long {{longitude}}</h3>              
+      </form>
+
+  </div>
+
+  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="terms" fxLayout="row" fxLayoutAlign="center center">                                       
+        <!-- <a href="" ng-click="termsandconditions()">click</a> -->
+        <button mat-raised-button color="accent" (click)="getaddress()">Current Location</button>
+        </div>
+        <div class="terms" fxLayout="row" fxLayoutAlign="right right"> 
+        <button mat-raised-button color="accent" (click)="getaddress()">Ok</button>
+    </div>
+  </div>
+</div>
+

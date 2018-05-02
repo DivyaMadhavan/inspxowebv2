@@ -41,22 +41,10 @@ export class ManageuserService implements Resolve<any>
         });
     }
 
-    getroles(): Promise<any>
-    {
-        return new Promise((resolve, reject) => {
-            this.http.get(this.actionUrl+'user/sumviewuser/')
-                .subscribe((response: any) => {
-                    this.products = response;
-                    console.log(this.products)
-                    this.onProductsChanged.next(this.products);
-                    resolve(response);
-                }, reject);
-        });
-    }
     getProducts(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this.http.get(this.actionUrl+'user/getrole/')
+            this.http.get(this.actionUrl+'user/sumviewuser/')
                 .subscribe((response: any) => {
                     this.products = response;
                     console.log(this.products)
