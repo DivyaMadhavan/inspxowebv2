@@ -5,7 +5,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations'
 import { Router } from '@angular/router';
 import { HttpClient} from '@angular/common/http';
-
+import { Configuration } from '../../../app.constants';
 @Component({
   selector: 'app-forgotpassword',
   templateUrl: './forgotpassword.component.html',
@@ -13,6 +13,7 @@ import { HttpClient} from '@angular/common/http';
   animations : fuseAnimations
 })
 export class ForgotpasswordComponent implements OnInit {
+    private actionUrl: string;
     forgotPasswordForm: FormGroup;
     forgotPasswordFormErrors: any;
     result:string;
@@ -21,9 +22,10 @@ export class ForgotpasswordComponent implements OnInit {
         private fuseConfig: FuseConfigService,
         private formBuilder: FormBuilder,
         private http:HttpClient,
-        private router :Router
+        private router :Router, private _configuration: Configuration
     )
     {
+        this.actionUrl = _configuration.ServerWithApiUrl;
         this.fuseConfig.setConfig({
             layout: {
                 navigation: 'none',
@@ -81,7 +83,7 @@ export class ForgotpasswordComponent implements OnInit {
         let username = this.forgotPasswordForm.value.username;
         let emailid = this.forgotPasswordForm.value.email;
         let accountid = this.forgotPasswordForm.value.accountid;
-        this.http.get('http://52.176.42.140:8000/login/forgotpass/', {         
+        this.http.get(this.actionUrl+'login/forgotpass/', {         
                   params: {
                       username: username,
                       emailid: emailid,

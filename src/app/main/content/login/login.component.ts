@@ -12,7 +12,7 @@ import {
     GoogleLoginProvider
 } from 'angular5-social-login';
 import { HttpClient} from '@angular/common/http';
-
+import { Configuration } from '../../../app.constants';
 
 
 @Component({
@@ -23,17 +23,19 @@ import { HttpClient} from '@angular/common/http';
 })
 
 export class LoginComponent implements OnInit {
-
+  private actionUrl: string;
   loginForm: FormGroup;
   loginFormErrors: any;
   result:string;
   constructor(    
       private fuseConfig: FuseConfigService,
       private formBuilder: FormBuilder,
-      private router :Router,private socialAuthService: AuthService,private http: HttpClient
+      private router :Router,private socialAuthService: AuthService,private http: HttpClient,
+      private _configuration: Configuration
   )
 {
-   
+      this.actionUrl = _configuration.ServerWithApiUrl;
+    
       this.fuseConfig.setConfig({
           layout: {
               navigation: 'none',
@@ -52,6 +54,7 @@ export class LoginComponent implements OnInit {
   {
     this.result=null;
     console.log("event listening");
+    console.log(this.actionUrl);
       this.loginForm = this.formBuilder.group({        
           password: ['', Validators.required],
           username: ['', Validators.required],
@@ -85,10 +88,11 @@ export class LoginComponent implements OnInit {
   loginclick() {
     this.result='';
     //this.errormessage='';
+      console.log(this.actionUrl);
       let username = this.loginForm.value.username;
       let password = this.loginForm.value.password;
       let accountid = this.loginForm.value.accountid;
-      this.http.get('http://52.176.42.140:8000/login/logincheck/', {         
+      this.http.get(this.actionUrl+'login/logincheck/', {         
                 params: {
                     username: username,
                     password: password,
@@ -158,7 +162,7 @@ export class LoginComponent implements OnInit {
       (userData) => {
        console.log(socialPlatform+" sign in data : " , userData);
         //Now sign-in with userData
-        this.http.get('http://52.176.42.140:8000/login/sociallogin/', {         
+        this.http.get(this.actionUrl+'login/sociallogin/', {         
             params: {
                 socialtype: "facebook",
                 socialtypetoken: "XXXxx"              

@@ -5,7 +5,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
 import { TermsandconditionComponent } from '../register/termsandcondition/termsandcondition.component';
-
+import { Configuration } from '../../../app.constants';
 import {
     AuthService,
     FacebookLoginProvider,
@@ -25,7 +25,7 @@ const httpOptions = {
   animations : fuseAnimations
 })
 export class SocialregisterComponent implements OnInit {
- 
+    private actionUrl: string;
      registerForm: FormGroup;
      registerFormErrors: any;
      result :string='';
@@ -34,10 +34,11 @@ export class SocialregisterComponent implements OnInit {
      dialogRef: any;
     constructor(
         private fuseConfig: FuseConfigService,
-        private formBuilder: FormBuilder,
+        private formBuilder: FormBuilder,private _configuration: Configuration,
         private socialAuthService: AuthService,private http: HttpClient, public dialog: MatDialog
     )
     {
+        this.actionUrl = _configuration.ServerWithApiUrl;
         this.fuseConfig.setConfig({
             layout: {
                 navigation: 'none',
@@ -139,7 +140,7 @@ export class SocialregisterComponent implements OnInit {
             "socialtype" : "facebook",
             "socialtypeToken":"abcdfhjksdfjsdbfdjshfi"
        }));
-       this.http.post("http://52.176.42.140:8000/login/socialregister/",JSON.stringify({
+       this.http.post(this.actionUrl+"login/socialregister/",JSON.stringify({
              "Accountid":123456,            
              "firstname": firstname,   
              "lastname":lastname,  

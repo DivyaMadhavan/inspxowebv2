@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
                           return;
                       }
                       this.dataSource.filter = this.filter.nativeElement.value;
-                  });
+        });
     }
 }
 
@@ -137,20 +137,17 @@ export class FilesDataSource extends DataSource<any>
                 case 'id':
                     [propertyA, propertyB] = [a.id, b.id];
                     break;
-                case 'name':
-                    [propertyA, propertyB] = [a.name, b.name];
+                case 'firstname':
+                    [propertyA, propertyB] = [a.firstname, b.firstname];
                     break;
-                case 'categories':
-                    [propertyA, propertyB] = [a.categories[0], b.categories[0]];
+                case 'emailid':
+                    [propertyA, propertyB] = [a.emailid, b.emailid];
                     break;
-                case 'price':
-                    [propertyA, propertyB] = [a.priceTaxIncl, b.priceTaxIncl];
+                case 'rolename':
+                    [propertyA, propertyB] = [a.rolename, b.rolename];
                     break;
-                case 'quantity':
-                    [propertyA, propertyB] = [a.quantity, b.quantity];
-                    break;
-                case 'active':
-                    [propertyA, propertyB] = [a.active, b.active];
+                case 'userstatus':
+                    [propertyA, propertyB] = [a.userstatus, b.userstatus];
                     break;
             }
 

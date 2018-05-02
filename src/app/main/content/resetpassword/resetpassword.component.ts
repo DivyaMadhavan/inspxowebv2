@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
-
+import { Configuration } from '../../../app.constants';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'      
@@ -16,7 +16,7 @@ const httpOptions = {
   animations : fuseAnimations
 })
 export class ResetpasswordComponent implements OnInit {
-
+    private actionUrl: string;
   resetForm: FormGroup;
   resetFormErrors: any;
   result:string;
@@ -24,9 +24,10 @@ export class ResetpasswordComponent implements OnInit {
   constructor(
       private fuseConfig: FuseConfigService,
       private formBuilder: FormBuilder,
-      private http: HttpClient
+      private http: HttpClient, private _configuration: Configuration
   ) 
   {
+    this.actionUrl = _configuration.ServerWithApiUrl;
     this.fuseConfig.setConfig({
         layout: {
             navigation: 'none',
@@ -78,7 +79,7 @@ export class ResetpasswordComponent implements OnInit {
     this.errormessage='';
     let password = this.resetForm.value.password;
     let accountid = this.resetForm.value.accountid;
-    this.http.put('http://52.176.42.140:8000/login/passreset/1',JSON.stringify({         
+    this.http.put(this.actionUrl+'login/passreset/1',JSON.stringify({         
          "password":password  
          }),httpOptions).subscribe(data => {                
                let logindetails = JSON.stringify(data);

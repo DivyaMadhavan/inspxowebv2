@@ -5,7 +5,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
 import { TermsandconditionComponent } from './termsandcondition/termsandcondition.component';
-
+import { Configuration } from '../../../app.constants';
 import {
     AuthService,
     FacebookLoginProvider,
@@ -24,6 +24,7 @@ const httpOptions = {
   animations : fuseAnimations
 })
 export class RegisterComponent implements OnInit {
+    private actionUrl: string;
      registerForm: FormGroup;
      registerFormErrors: any;
      result :string;
@@ -32,10 +33,11 @@ export class RegisterComponent implements OnInit {
      dialogRef: any;
     constructor(
         private fuseConfig: FuseConfigService,
-        private formBuilder: FormBuilder,
+        private formBuilder: FormBuilder, private _configuration: Configuration,
         private socialAuthService: AuthService,private http: HttpClient, public dialog: MatDialog
     )
     {
+        this.actionUrl = _configuration.ServerWithApiUrl;
         this.fuseConfig.setConfig({
             layout: {
                 navigation: 'none',
@@ -144,7 +146,7 @@ export class RegisterComponent implements OnInit {
             "rolename":"Owner",
             "address":"Current Address"
        }));
-       this.http.post("http://52.176.42.140:8000/login/register/",JSON.stringify({
+       this.http.post(this.actionUrl+"login/register/",JSON.stringify({
              "Accountid":123456,            
              "firstname": firstname,   
              "lastname":lastname,  
@@ -210,7 +212,7 @@ public socialSignIn(socialPlatform : string) {
       (userData) => {
        console.log(socialPlatform+" sign in data : " , userData);
         //Now sign-in with userData
-        this.http.get('http://52.176.42.140:8000/login/socialregister/', {         
+        this.http.get(this.actionUrl+'login/socialregister/', {         
             params: {
                 socialtype: "facebook",
                 socialtypetoken: "XXXxx"              

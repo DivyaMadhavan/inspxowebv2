@@ -85,38 +85,51 @@ export class AddandupdateusersComponent implements OnInit {
         });
   }
 
+
+
+  addProduct()
+  {
+      const data = this.productForm.getRawValue();
+      //data.firstname = FuseUtils.handleize(data.firstname);
+      //data.emailid = FuseUtils.handleize(data.emailid);     
+      this.productService.addProduct(data)
+          .then((response) => { 
+              let responsedata = JSON.stringify(response);
+              let result = JSON.parse(responsedata);
+              console.log(result.Message);                   
+              //this.productService.onProductChanged.next(data);            
+              this.snackBar.open(result.Message, 'OK', {
+                  verticalPosition: 'top',
+                  duration        : 2000
+              });
+              this.location.go('apps/usermanagement/users');
+          }) 
+          .catch(error => {
+            console.log(error);                              
+            //this.productService.onProductChanged.next(data);            
+            this.snackBar.open('User Details are not saved', 'OK', {
+                verticalPosition: 'top',
+                duration        : 2000
+            });
+          }
+        );
+  }
   saveProduct()
   {
       const data = this.productForm.getRawValue();
       data.handle = FuseUtils.handleize(data.name);
       this.productService.saveProduct(data)
-          .then(() => {
-
+          .then(result => {
+           
               // Trigger the subscription with new data
-              this.productService.onProductChanged.next(data);
+              //this.productService.onProductChanged.next(data);
 
               // Show the success message
-              this.snackBar.open('Product saved', 'OK', {
+              this.snackBar.open('User saved', 'OK', {
                   verticalPosition: 'top',
                   duration        : 2000
               });
-          });
-  }
-
-  addProduct()
-  {
-      const data = this.productForm.getRawValue();
-      data.firstname = FuseUtils.handleize(data.firstname);
-      data.emailid = FuseUtils.handleize(data.emailid);
-      console.log(data);
-      this.productService.addProduct(data)
-          .then(() => {              
-              this.productService.onProductChanged.next(data);            
-              this.snackBar.open('Product added', 'OK', {
-                  verticalPosition: 'top',
-                  duration        : 2000
-              });
-              this.location.go('apps/usermanagement/users/' + this.product.id + '/' + this.product.handle);
-          });
+          })
+          .catch(error => console.log(error));
   }
 }

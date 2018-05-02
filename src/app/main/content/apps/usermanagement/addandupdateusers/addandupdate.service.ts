@@ -4,19 +4,24 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-
+import { Configuration } from '../../../../../../app/app.constants';
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable()
 export class addandupdateService implements Resolve<any>
 {
+    private actionUrl: string;
+  
     routeParams: any;
     product: any;
     onProductChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient, private _configuration: Configuration
     )
     {
+        this.actionUrl = _configuration.ServerWithApiUrl;
     }
 
     /**
@@ -55,7 +60,7 @@ export class addandupdateService implements Resolve<any>
             {
                 console.log("getting user info");
                 console.log(this.routeParams.id);
-                this.http.get('http://52.176.42.140:8000/user/detviewuser/' + this.routeParams.id)
+                this.http.get( this.actionUrl+'user/detviewuser/' + this.routeParams.id)
                     .subscribe((response: any) => {
                         this.product = response;
                         this.onProductChanged.next(this.product);
@@ -67,13 +72,8 @@ export class addandupdateService implements Resolve<any>
 
     saveProduct(product)
     {
-        const headers = new HttpHeaders().set('Content-Type', 'application/json');
-        console.log(product.id);
-        const httpOptions = {
-          headers: headers,
-        };   
-        return new Promise((resolve, reject) => {
-            this.http.put('http://52.176.42.140:8000/user/updateuser/' + 53,{
+         return new Promise((resolve, reject) => {
+            this.http.put(this.actionUrl+'user/updateuser/' + 53,{
             "firstname":"safaf",
             "emailid":"divyamrelsysin",
             "rolename":"fdsf",
@@ -82,24 +82,34 @@ export class addandupdateService implements Resolve<any>
             "password":"sdfds",
             "organization":"sgdsf",
             "address":"aasdfdfsa","userstatus":"Active","phone":"1234567890"},httpOptions)
-                .subscribe((response: any) => {
-                    resolve(response);
-                }, reject);
+            .subscribe(response => {resolve(response)},
+             error => {
+             reject(error); 
+           })     
         });
     }
     addProduct(product)
-    {
-        const headers = new HttpHeaders().set('Content-Type', 'application/json');
-      
-        const httpOptions = {
-          headers: headers,
-        };         
+    {             
+        let bodyString = { 
+        "Accountid":1234,
+        "firstname":product.firstname, 
+        "lastname":product.lastname,  
+        "emailid":product.emailid,  
+        "phone": product.phone, 
+        "address":product.address,
+        "password": product.password,  
+        "rolename": product.rolename,  
+        "organization":product.organization, 
+        "username":product.username,
+        "userstatus":product.userstatus
+        } 
         console.log(JSON.stringify(product));
         return new Promise((resolve, reject) => {
-            this.http.post('http://52.176.42.140:8000/user/adduser/',JSON.stringify(product),httpOptions)
-                .subscribe((response: any) => {
-                    resolve(response);
-                }, reject);
+            this.http.post(this.actionUrl+'user/adduser/',bodyString,httpOptions)               
+               .subscribe(response => {resolve(response)},
+               error => {
+                reject(error); 
+              })                           
         });
     }
 }

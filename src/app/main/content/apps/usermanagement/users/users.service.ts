@@ -3,17 +3,19 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
+import { Configuration } from '../../../../../../app/app.constants';
 @Injectable()
 export class ManageuserService implements Resolve<any>
 {
+    private actionUrl: string;
     products: any[];
     onProductsChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient, private _configuration: Configuration
     )
     {
+        this.actionUrl = _configuration.ServerWithApiUrl;
     }
 
     /**
@@ -29,6 +31,7 @@ export class ManageuserService implements Resolve<any>
 
             Promise.all([
                 this.getProducts()
+                                //this.getroles()                        
             ]).then(
                 () => {
                     resolve();
@@ -38,10 +41,10 @@ export class ManageuserService implements Resolve<any>
         });
     }
 
-    getProducts(): Promise<any>
+    getroles(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this.http.get('http://52.176.42.140:8000/user/sumviewuser/')
+            this.http.get(this.actionUrl+'user/sumviewuser/')
                 .subscribe((response: any) => {
                     this.products = response;
                     console.log(this.products)
@@ -50,4 +53,17 @@ export class ManageuserService implements Resolve<any>
                 }, reject);
         });
     }
+    getProducts(): Promise<any>
+    {
+        return new Promise((resolve, reject) => {
+            this.http.get(this.actionUrl+'user/getrole/')
+                .subscribe((response: any) => {
+                    this.products = response;
+                    console.log(this.products)
+                    this.onProductsChanged.next(this.products);
+                    resolve(response);
+                }, reject);
+        });
+    }
+   
 }

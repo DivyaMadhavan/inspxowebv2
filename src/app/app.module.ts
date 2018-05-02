@@ -34,7 +34,7 @@ import { testModule } from './main/content//test/test.module';
 import { UserService } from './main/content/sample/user.service';
 //import { ManageuserService } from './main/content/users/services/manageuser.service';
 import { FormsModule, ReactiveFormsModule,NgModel  } from '@angular/forms';
-
+import { Configuration } from './app.constants';
 
 //import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 //import { SocialmedialoginComponent } from '../socialmedialogin/socialmedialogin.component';
@@ -112,7 +112,7 @@ const appRoutes: Routes = [
           provide: AuthServiceConfig,
           useFactory: getAuthServiceConfigs
         },
-         UserService         
+         UserService,Configuration         
       ],
     bootstrap   : [
         AppComponent
