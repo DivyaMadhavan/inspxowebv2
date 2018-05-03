@@ -4,6 +4,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { CalendarEvent } from 'angular-calendar';
 import { } from 'googlemaps';
 import { AgmCoreModule,MapsAPILoader } from '@agm/core';
+import { Location } from '@angular/common';
+import { mapdetails } from '../../../../../../app/app.constants';
+
 declare var google: any;
 @Component({
   selector: 'app-map',
@@ -25,6 +28,7 @@ export class MapComponent implements OnInit{
     public zoom: number;
     public currentAddress: string;
     private geoCoder;
+    private location: Location
     @ViewChild("search")
     public searchElementRef: ElementRef;
     
@@ -34,8 +38,8 @@ export class MapComponent implements OnInit{
           private formBuilder: FormBuilder,  private mapsAPILoader: MapsAPILoader,
           private ngZone: NgZone
           )
-     {
-}
+         {
+          }
 
 ngOnInit() {  //set google maps defaults
     //this.zoom = 4;
@@ -140,9 +144,11 @@ ngOnInit() {  //set google maps defaults
     }
     getaddress()
     {
-      if(this.currentAddress != '')
-      {
-        sessionStorage.setItem("mapaddress",this.currentAddress);
-      }
+      console.log("Session check");
+      console.log(this.currentAddress);  
+      //this.mapdata.setData(this.currentAddress);
+      //sessionStorage.setItthis.currentAddressem("mapaddress",this.currentAddress);
+      this.dialogRef.close();
+     // this.location.go('/apps/usermanagement/users/new');
     }
 }

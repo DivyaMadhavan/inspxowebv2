@@ -15,6 +15,7 @@ export class addandupdateService implements Resolve<any>
   
     routeParams: any;
     product: any;
+    status:any;
     onProductChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
     constructor(
@@ -47,7 +48,6 @@ export class addandupdateService implements Resolve<any>
             );
         });
     }
-
     getProduct(): Promise<any>
     {
         return new Promise((resolve, reject) => {
@@ -55,6 +55,18 @@ export class addandupdateService implements Resolve<any>
             {
                 this.onProductChanged.next(false);
                 resolve(false);
+            }
+            else if ((this.routeParams.firstname !== '') && (this.routeParams.id !=''))
+            {
+                console.log("getting user info");
+                console.log(this.routeParams.id);
+                this.http.get( this.actionUrl+'user/detviewuser/' + this.routeParams.id)
+                    .subscribe((response: any) => {
+                        this.product = response;
+                        //this.product.pagetype = "delete";
+                        this.onProductChanged.next(this.product);
+                        resolve(response);
+               }, reject);
             }
             else
             {

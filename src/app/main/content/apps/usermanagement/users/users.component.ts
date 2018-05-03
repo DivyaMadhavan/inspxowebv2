@@ -35,7 +35,6 @@ export class UsersComponent implements OnInit {
     )
     {
     }
-
     ngOnInit()
     {
         this.dataSource = new FilesDataSource(this.productsService, this.paginator, this.sort);
@@ -86,7 +85,10 @@ export class FilesDataSource extends DataSource<any>
         super();
         this.filteredData = this.productsService.products;
     }
-
+    deleteUser(product)
+    {
+        console.log("delete check");
+    }
     /** Connect function called by the table to retrieve one stream containing the data to render. */
     connect(): Observable<any[]>
     {
@@ -157,8 +159,8 @@ export class FilesDataSource extends DataSource<any>
             return (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1);
         });
     }
-
     disconnect()
     {
     }
+   
 }

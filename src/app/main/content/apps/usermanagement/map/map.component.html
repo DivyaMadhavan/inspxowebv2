@@ -12,7 +12,7 @@
 
   <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
 
-      <form [formGroup]="contactForm">
+      <form [formGroup]="contactForm" name="contactForm">
             <div [hidden]="submitted">
                     <form (ngSubmit)="onSubmit()" #locForm="ngForm">
                             <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">

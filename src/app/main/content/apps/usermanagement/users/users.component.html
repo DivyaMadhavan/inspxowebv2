@@ -111,22 +111,28 @@
               </mat-cell>
           </ng-container>
           <!-- delete Column -->
+          <!-- <ng-container cdkColumnDef="delete">
+          <mat-cell *matCellDef="let product">
+                <button mat-button (click)="onDelete()">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container> -->
           <ng-container cdkColumnDef="delete">
               <mat-header-cell *cdkHeaderCellDef  fxHide fxShow.gt-xs>Delete</mat-header-cell>
-              <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
-                  <mat-icon>delete_forever</mat-icon>                   
+              <mat-cell *cdkCellDef="let product"  [routerLink]="'/apps/usermanagement/users/'+product.id +'/'+product.firstname" fxHide fxShow.gt-xs>
+                <button mat-button>
+                    <mat-icon>delete_forever</mat-icon>
+                </button>                  
               </mat-cell>
           </ng-container>
-
-
               <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
 
               <mat-row *cdkRowDef="let product; columns: displayedColumns;"
                        class="product"
                        matRipple
-                       [routerLink]="'/apps/usermanagement/users/'+product.id">
-             </mat-row>                 
-         
+                    >
+             </mat-row>               
           </mat-table>
 
           <mat-paginator #paginator

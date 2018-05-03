@@ -30,6 +30,7 @@ export class Product
     address:string;
     usertype:string;
     phone :number;
+    pagetype:string;
     constructor(product?)
     {
         product = product || {};

@@ -17,6 +17,8 @@ import { Product } from './addandupdate.model';
 import { addandupdateService } from './addandupdate.service';
 import { Location } from '@angular/common';
 import { MapComponent } from '../../usermanagement/map/map.component';
+import { mapdetails } from '../../../../../../app/app.constants';
+
 @Component({
   selector: 'app-addandupdateusers',
   templateUrl: './addandupdateusers.component.html',
@@ -24,6 +26,7 @@ import { MapComponent } from '../../usermanagement/map/map.component';
   encapsulation: ViewEncapsulation.None,
   animations   : fuseAnimations
 })
+
 export class AddandupdateusersComponent implements OnInit {
   product = new Product();
   onProductChanged: Subscription;
@@ -31,6 +34,7 @@ export class AddandupdateusersComponent implements OnInit {
   productForm: FormGroup;
   dialogRef: any;
   mapaddress : string;
+  mapvalue :string;
   constructor(
       private productService: addandupdateService,
       private formBuilder: FormBuilder,
@@ -38,18 +42,21 @@ export class AddandupdateusersComponent implements OnInit {
       private location: Location,public dialog: MatDialog
   )
   {
-    let address = sessionStorage.getItem("mappaddress");
-    console.log(address);
-    this.mapaddress = address;
+   //this.mapvalue = this.mapdetailsvalue.getData();
   }
   ngOnInit()
   {
+    //console.log("get session values");
+    //let address = sessionStorage.getItem("mappaddress");
+    //console.log(address);
+    //this.mapaddress = address;
       // Subscribe to update product on changes
       this.onProductChanged =
           this.productService.onProductChanged
               .subscribe(product => {
                   if ( product )
                   {
+                      console.log(product);
                       this.product = new Product(product);
                       this.pageType = 'edit';
                   }
@@ -81,7 +88,7 @@ export class AddandupdateusersComponent implements OnInit {
           username              : [ this.product.username],
           password              : [ this.product.password],
           organization          : [ this.product.organization],
-          address               : [ this.mapaddress],
+          address               : [ this.product.address ],
           //usertype              : [  this.product.usertype],
           userstatus            : [ this.product.userstatus],
           phone                 : [ this.product.phone]  
