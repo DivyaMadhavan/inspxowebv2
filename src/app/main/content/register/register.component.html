@@ -29,7 +29,6 @@
                             Last Name is required
                         </mat-error>
                     </mat-form-field>
-
                 <mat-form-field>
                     <input matInput placeholder="Email" formControlName="email">
                     <mat-error *ngIf="registerFormErrors.email.required">
@@ -37,7 +36,7 @@
                     </mat-error>
                     <mat-error *ngIf="!registerFormErrors.email.required && registerFormErrors.email.email">
                         Please enter a valid email address
-                    </mat-error>
+                    </mat-error>                    
                 </mat-form-field>
                 
                 <mat-form-field>
@@ -56,28 +55,13 @@
                         </mat-form-field>
                      
                             <mat-form-field>
-                                <mat-select placeholder="Choose Industry" formControlName="industrylistdet">
-                                    <mat-option [value]="'Technology'">
-                                        Technology
-                                    </mat-option>
-                                    <mat-option [value]="' Building Contractor'">
-                                        Building Contractor
-                                    </mat-option>
-                                    <mat-option [value]="'Manufacture'">
-                                        Manufacture
-                                    </mat-option>
-                                    <mat-option [value]="'Insurance'">
-                                        Insurance
-                                    </mat-option>
-                                    <mat-option [value]="'Real Estate'">
-                                        Real Estate
-                                    </mat-option>
-                                    <mat-option [value]="'Retail'">
-                                       Retail
-                                    </mat-option>
-                                </mat-select>  
-                                <mat-error *ngIf="registerFormErrors.industrylistdet.required">
-                                    Country is required
+                                    <mat-select placeholder="Industry" formControlName="industrylistdet" required>
+                                            <mat-option *ngFor="let ind of industry" [value]="ind.industryname">
+                                                {{ ind.industryname }}
+                                              </mat-option>
+                                        </mat-select>                                      
+                                    <mat-error *ngIf="registerFormErrors.industrylistdet.required">
+                                          Industry is required
                                     </mat-error>                            
                             </mat-form-field>
                              
@@ -89,6 +73,12 @@
                                 </mat-form-field>
 
                 <div class="subtittle">Account Details</div>
+                 <mat-form-field>
+                        <input matInput placeholder="Account ID" formControlName="accountid">
+                        <mat-error *ngIf="registerFormErrors.accountid.required">
+                                Account ID is required
+                        </mat-error>
+                    </mat-form-field>  
                 <mat-form-field>
                         <input matInput placeholder="User Name" formControlName="username">
                         <mat-error *ngIf="registerFormErrors.username.required">
@@ -110,8 +100,6 @@
                             Passwords doesn't match
                         </mat-error>
                     </mat-form-field>
-    
-
                     <div class="terms" fxLayout="row" fxLayoutAlign="center center">
                             <mat-checkbox name="terms" formControlName="confirmCheckbox" aria-label="Accept" required>
                                 <span>Accept</span>

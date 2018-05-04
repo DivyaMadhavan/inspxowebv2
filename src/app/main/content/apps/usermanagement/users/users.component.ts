@@ -1,7 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild,ViewEncapsulation } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { DataSource } from '@angular/cdk/collections';
-
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { FormGroup } from '@angular/forms';
+import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
@@ -10,7 +12,6 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
 import { ManageuserService } from './users.service';
@@ -18,20 +19,25 @@ import { ManageuserService } from './users.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],  
+  styleUrls: ['./users.component.scss'], 
+  encapsulation: ViewEncapsulation.None, 
   animations   : fuseAnimations
 })
 export class UsersComponent implements OnInit {
-
+  
     dataSource: FilesDataSource | null;
     displayedColumns = ['firstname','emailid', 'rolename','userstatus','view','edit','delete'];
-
+    //dialogRef: any;
+    //confrimdelete: MatDialogRef<FuseConfirmDialogComponent>;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild('filter') filter: ElementRef;
     @ViewChild(MatSort) sort: MatSort;
+ 
+    dialogRef: any;
 
+    confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
     constructor(
-        private productsService: ManageuserService
+        private productsService: ManageuserService,  public dialog: MatDialog,
     )
     {
     }
@@ -48,7 +54,50 @@ export class UsersComponent implements OnInit {
                       }
                       this.dataSource.filter = this.filter.nativeElement.value;
         });
+        
     }
+    deleteUser(product)
+    {
+        this.confirmDialogRef = this.dialog.open(FuseConfirmDialogComponent, {
+            disableClose: false
+        });
+
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+
+        this.confirmDialogRef.afterClosed().subscribe(result => {
+            if ( result )
+            {
+                console.log("delete message view");
+                console.log(result);
+               // this.contactsService.deleteContact(contact);
+            }
+            this.confirmDialogRef = null;
+        });
+
+    }
+   // editContact(product)
+    //{
+        // this.dialogRef = this.dialog.open(UserDetailViewComponent, {
+        //     panelClass: 'user-detail-view-dialog',
+        //     data      : {
+        //         product: product,
+        //         action : 'edit'
+        //     }
+        // });
+    //     this.dialogRef.afterClosed()
+    //         .subscribe(response => {
+    //             if ( !response )
+    //             {
+    //                 return;
+    //             }
+    //             const actionType: string = response[0];
+    //             const formData: FormGroup = response[1];
+    //             switch ( actionType )
+    //             {
+                   
+    //             }
+    //         });
+     //} 
 }
 
 export class FilesDataSource extends DataSource<any>
@@ -76,6 +125,7 @@ export class FilesDataSource extends DataSource<any>
         this._filterChange.next(filter);
     }
 
+   
     constructor(
         private productsService: ManageuserService,
         private _paginator: MatPaginator,
@@ -85,10 +135,7 @@ export class FilesDataSource extends DataSource<any>
         super();
         this.filteredData = this.productsService.products;
     }
-    deleteUser(product)
-    {
-        console.log("delete check");
-    }
+   
     /** Connect function called by the table to retrieve one stream containing the data to render. */
     connect(): Observable<any[]>
     {

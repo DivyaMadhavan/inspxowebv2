@@ -32,6 +32,7 @@ import { MatIconModule } from "@angular/material/icon"; // <----- Here
 import { testModule } from './main/content//test/test.module';
 //import { usersModule } from './main/content/users/users.module';
 import { UserService } from './main/content/sample/user.service';
+import { RegisterService } from './main/content/register/register.service';
 //import { ManageuserService } from './main/content/users/services/manageuser.service';
 import { FormsModule, ReactiveFormsModule,NgModel  } from '@angular/forms';
 import { Configuration } from './app.constants';
@@ -112,7 +113,7 @@ const appRoutes: Routes = [
           provide: AuthServiceConfig,
           useFactory: getAuthServiceConfigs
         },
-         UserService,Configuration         
+         UserService,Configuration,RegisterService         
       ],
     bootstrap   : [
         AppComponent

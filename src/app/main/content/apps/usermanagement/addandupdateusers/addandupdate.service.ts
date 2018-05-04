@@ -11,8 +11,7 @@ const httpOptions = {
 @Injectable()
 export class addandupdateService implements Resolve<any>
 {
-    private actionUrl: string;
-  
+    private actionUrl: string;  
     routeParams: any;
     product: any;
     status:any;

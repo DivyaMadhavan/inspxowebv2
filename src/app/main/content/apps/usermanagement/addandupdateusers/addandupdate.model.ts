@@ -31,6 +31,7 @@ export class Product
     usertype:string;
     phone :number;
     pagetype:string;
+    currentAddress:string;
     constructor(product?)
     {
         product = product || {};
@@ -54,6 +55,7 @@ export class Product
         this.usertype = product.usertype;
         this.userstatus = product.userstatus;
         this.phone = product.phone;
+        this.currentAddress = product.currentaddress;
     }
 
     addCategory(event: MatChipInputEvent): void

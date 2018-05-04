@@ -12,7 +12,7 @@
 
   <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
 
-      <form [formGroup]="contactForm" name="contactForm">
+      <form [formGroup]="mapForm" name="mapForm" class="event-form w-100-p" fxLayout="column" fxFlex>
             <div [hidden]="submitted">
                     <form (ngSubmit)="onSubmit()" #locForm="ngForm">
                             <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
@@ -22,9 +22,13 @@
                                    #search [formControl]="searchControl"  type="text" placeholder="Search location">
                                 </mat-form-field> 
                                 <div class="w-10-p"></div>
-                                <div class="w-40-p">
-                                    <strong> Current Address:</strong>{{currentAddress}}
-                                </div>   
+                                <mat-form-field class="w-100-p">
+                                    <input matInput
+                                           name="currentaddress"
+                                           formControlName="currentaddress"
+                                           placeholder="Current Address"
+                                           required>
+                                </mat-form-field>
 </div>
                     </form>
                 </div>            
@@ -36,17 +40,23 @@
                     (dragEnd)="markerDragEnd($event)"></agm-marker>
                 </agm-map>
                 <h3>Location: Lat {{latitude}}, Long {{longitude}}</h3>              
-      </form>
-
+     </form>
   </div>
 
   <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="terms" fxLayout="row" fxLayoutAlign="center center">                                       
         <!-- <a href="" ng-click="termsandconditions()">click</a> -->
-        <button mat-raised-button color="accent" (click)="getaddress()">Current Location</button>
+        <button mat-raised-button color="accent">Current Location</button>
         </div>
         <div class="terms" fxLayout="row" fxLayoutAlign="right right"> 
-        <button mat-raised-button color="accent" (click)="getaddress()">Ok</button>
+                <button
+                mat-raised-button
+                (click)="dialogRef.close(['save',mapForm])"
+                class="save-button mat-accent"               
+                aria-label="SAVE">
+            Ok
+        </button>
+        <!-- <button mat-raised-button color="accent" (click)="getaddress()">Ok</button> -->
     </div>
   </div>
 </div>

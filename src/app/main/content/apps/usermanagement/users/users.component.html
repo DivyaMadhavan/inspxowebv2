@@ -94,8 +94,6 @@
               </p>
           </mat-cell>
       </ng-container>
-       
-
         <!-- view Column -->
         <ng-container cdkColumnDef="view">
             <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>View</mat-header-cell>
@@ -106,32 +104,43 @@
            <!-- edit Column -->
            <ng-container cdkColumnDef="edit">
               <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>Edit</mat-header-cell>
-              <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+              <mat-cell *cdkCellDef="let product" [routerLink]="'/apps/usermanagement/users/'+product.id" fxHide fxShow.gt-xs>
                   <mat-icon>mode_edit</mat-icon>                   
               </mat-cell>
           </ng-container>
           <!-- delete Column -->
-          <!-- <ng-container cdkColumnDef="delete">
-          <mat-cell *matCellDef="let product">
-                <button mat-button (click)="onDelete()">
+          <ng-container cdkColumnDef="delete">
+                <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>Delete</mat-header-cell>
+          <mat-cell *matCellDef="let product" fxHide fxShow.gt-xs>
+                <button mat-button (click)="$event.stopPropagation();deleteUser(product)">
                     <mat-icon>delete_forever</mat-icon>
                 </button>
             </mat-cell>
-        </ng-container> -->
-          <ng-container cdkColumnDef="delete">
-              <mat-header-cell *cdkHeaderCellDef  fxHide fxShow.gt-xs>Delete</mat-header-cell>
-              <mat-cell *cdkCellDef="let product"  [routerLink]="'/apps/usermanagement/users/'+product.id +'/'+product.firstname" fxHide fxShow.gt-xs>
+        </ng-container>
+          <!-- <ng-container cdkColumnDef="delete">
+            <mat-header-cell *cdkHeaderCellDef  fxHide fxShow.gt-xs>Delete</mat-header-cell>
+              <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
                 <button mat-button>
                     <mat-icon>delete_forever</mat-icon>
                 </button>                  
               </mat-cell>
-          </ng-container>
+              <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+              (click)="$event.stopPropagation();">
+          <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #moreMenu="matMenu">
+                <button mat-menu-item aria-label="remove">
+                    <mat-icon>delete</mat-icon>
+                    <span>Remove</span>
+                </button>
+            </mat-menu>
+        
+          </ng-container> -->
               <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
 
               <mat-row *cdkRowDef="let product; columns: displayedColumns;"
                        class="product"
-                       matRipple
-                    >
+                       matRipple >
              </mat-row>               
           </mat-table>
 

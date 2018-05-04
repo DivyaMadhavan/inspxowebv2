@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       private _configuration: Configuration
   )
 {
-      this.actionUrl = _configuration.ServerWithApiUrl;
+      this.actionUrl = _configuration.ServerWithdomainAPI;
     
       this.fuseConfig.setConfig({
           layout: {
@@ -92,7 +92,8 @@ export class LoginComponent implements OnInit {
       let username = this.loginForm.value.username;
       let password = this.loginForm.value.password;
       let accountid = this.loginForm.value.accountid;
-      this.http.get(this.actionUrl+'login/logincheck/', {         
+      let url="https://"+accountid+'.'+ this.actionUrl+"user/logincheck/";
+      this.http.get(url, {         
                 params: {
                     username: username,
                     password: password,
@@ -171,7 +172,7 @@ export class LoginComponent implements OnInit {
              let logindetails1 = JSON.stringify(data);
              let userdetails1 =JSON.parse(logindetails1); 
              console.log(userdetails1);
-             //this.router.navigate(['/Dashboard']); 
+             this.router.navigate(['/SocialRegister']); 
       },
       err => {
         console.log("Error occured");

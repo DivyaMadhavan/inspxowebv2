@@ -139,10 +139,11 @@ export class AddandupdateusersComponent implements OnInit {
               {
                   return;
               }
-  
-              //this.contactsService.updateContact(response.getRawValue());
-  
-          });
+              const newEvent = response.getRawValue();
+              console.log("map value check");
+              console.log(newEvent);
+              //this.product.address = newEvent;
+     });
   }
   saveProduct()
   {

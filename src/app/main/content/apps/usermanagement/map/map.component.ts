@@ -6,7 +6,7 @@ import { } from 'googlemaps';
 import { AgmCoreModule,MapsAPILoader } from '@agm/core';
 import { Location } from '@angular/common';
 import { mapdetails } from '../../../../../../app/app.constants';
-
+import { Product } from '../addandupdateusers/addandupdate.model';
 declare var google: any;
 @Component({
   selector: 'app-map',
@@ -16,9 +16,9 @@ declare var google: any;
 })
 export class MapComponent implements OnInit{  
     dialogTitle: string;
-    contactForm: FormGroup; 
+    mapForm: FormGroup; 
     locInput='';
-  
+    mapdet: Product;
     submitted = false;
     onSubmit() { this.submitted = true; } 
     
@@ -38,7 +38,7 @@ export class MapComponent implements OnInit{
           private formBuilder: FormBuilder,  private mapsAPILoader: MapsAPILoader,
           private ngZone: NgZone
           )
-         {
+          {
           }
 
 ngOnInit() {  //set google maps defaults
@@ -139,16 +139,16 @@ ngOnInit() {  //set google maps defaults
     createContactForm()
     {
         return this.formBuilder.group({
-        
+          currentAddress      : [this.mapdet.currentAddress],
         });
     }
-    getaddress()
-    {
-      console.log("Session check");
-      console.log(this.currentAddress);  
+    //getaddress()
+    //{
+     // console.log("Session check");
+     // console.log(this.currentAddress);  
       //this.mapdata.setData(this.currentAddress);
       //sessionStorage.setItthis.currentAddressem("mapaddress",this.currentAddress);
-      this.dialogRef.close();
+      //  this.dialogRef.close();
      // this.location.go('/apps/usermanagement/users/new');
-    }
+     // }
 }
