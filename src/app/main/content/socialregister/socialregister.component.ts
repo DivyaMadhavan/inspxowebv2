@@ -47,7 +47,7 @@ export class SocialregisterComponent implements OnInit {
             }
         });
 
-        this.registerFormErrors = {
+        this.registerFormErrors = {            
             firstname  : {},
             lastname   : {},
             email      : {},
@@ -124,7 +124,7 @@ export class SocialregisterComponent implements OnInit {
             "firstname": firstname,   
             "lastname":lastname,  
             "emailid":emailid,   
-            "phone": phone,     
+            "phonenumber": phone,     
             "companyname": companyname, 
             "industryname": industryname,  
             "country":country,
