@@ -22,14 +22,14 @@ export class Product
     firstname: string;
     lastname:string;    
     emailid:string;
-    rolename:string;
+    role:string;
     username:string;
     password:string;
-    organization:string;
+    accountname:string;
     userstatus:string;
     address:string;
     usertype:string;
-    phone :number;
+    phonenumber :number;
     pagetype:string;
     currentAddress:string;
     constructor(product?)
@@ -47,14 +47,14 @@ export class Product
         this.firstname = product.firstname;
         this.lastname = product.firstname;
         this.emailid = product.emailid;
-        this.rolename = product.rolename;
+        this.role = product.role;
         this.username = product.username;
         this.password = product.password;
-        this.organization = product.organization;
+        this.accountname = product.accountname;
         this.address = product.address;
         this.usertype = product.usertype;
         this.userstatus = product.userstatus;
-        this.phone = product.phone;
+        this.phonenumber = product.phonenumber;
         this.currentAddress = product.currentaddress;
     }
 

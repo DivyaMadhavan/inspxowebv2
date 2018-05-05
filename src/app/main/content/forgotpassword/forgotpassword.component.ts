@@ -25,7 +25,7 @@ export class ForgotpasswordComponent implements OnInit {
         private router :Router, private _configuration: Configuration
     )
     {
-        this.actionUrl = _configuration.ServerWithApiUrl;
+        this.actionUrl = _configuration.ServerWithdomainAPI;
         this.fuseConfig.setConfig({
             layout: {
                 navigation: 'none',
@@ -74,7 +74,6 @@ export class ForgotpasswordComponent implements OnInit {
             }
         }
     }
-
     forgotpassword()
     {
         this.result='';
@@ -83,7 +82,7 @@ export class ForgotpasswordComponent implements OnInit {
         let username = this.forgotPasswordForm.value.username;
         let emailid = this.forgotPasswordForm.value.email;
         let accountid = this.forgotPasswordForm.value.accountid;
-        this.http.get(this.actionUrl+'login/forgotpass/', {         
+        this.http.get(this.actionUrl+'user/forgotpass/', {         
                   params: {
                       username: username,
                       emailid: emailid,

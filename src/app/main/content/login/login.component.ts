@@ -23,7 +23,8 @@ import { Configuration } from '../../../app.constants';
 })
 
 export class LoginComponent implements OnInit {
-  private actionUrl: string;
+  private Domainurl: string; 
+  private Domainwithhttpurl: string;
   loginForm: FormGroup;
   loginFormErrors: any;
   result:string;
@@ -34,8 +35,8 @@ export class LoginComponent implements OnInit {
       private _configuration: Configuration
   )
 {
-      this.actionUrl = _configuration.ServerWithdomainAPI;
-    
+      this.Domainurl = _configuration.ServerWithdomainAPI;
+      this.Domainwithhttpurl = _configuration.ServerWithhttpApiUrl;
       this.fuseConfig.setConfig({
           layout: {
               navigation: 'none',
@@ -54,7 +55,7 @@ export class LoginComponent implements OnInit {
   {
     this.result=null;
     console.log("event listening");
-    console.log(this.actionUrl);
+    console.log(this.Domainwithhttpurl);
       this.loginForm = this.formBuilder.group({        
           password: ['', Validators.required],
           username: ['', Validators.required],
@@ -88,11 +89,11 @@ export class LoginComponent implements OnInit {
   loginclick() {
     this.result='';
     //this.errormessage='';
-      console.log(this.actionUrl);
+      console.log(this.Domainurl);
       let username = this.loginForm.value.username;
       let password = this.loginForm.value.password;
       let accountid = this.loginForm.value.accountid;
-      let url="https://"+accountid+'.'+ this.actionUrl+"user/logincheck/";
+      let url="https://"+accountid+'.'+"ptetc.in:8080/user/logincheck/";
       this.http.get(url, {         
                 params: {
                     username: username,
@@ -105,17 +106,18 @@ export class LoginComponent implements OnInit {
                  let userdetails =JSON.parse(logindetails);
                  if(userdetails.length != 0)
                  {
-                    console.log("value occured");
+                    //console.log("value occured");
                     let userdet =JSON.stringify(userdetails[0]);
                     let dataval =JSON.parse(userdet);
-                    console.log(dataval.firstname); 
-                    sessionStorage.setItem("accountid",dataval.Accountid);
+                    //console.log(dataval.firstname); 
+                    sessionStorage.setItem("accountid",dataval.accountid);
                     sessionStorage.setItem("id",dataval.id);
                     sessionStorage.setItem("firstname",dataval.firstname);
                     sessionStorage.setItem("lastname",dataval.lastname);
                     sessionStorage.setItem("rolename",dataval.rolename);
                     sessionStorage.setItem("permission",dataval.permission);
-                    //console.log(JSON.parse(userdetails[0].accountid); 
+                    sessionStorage.setItem("securitycode",dataval.securitycode);
+                   // console.log(dataval.accountid); 
                     this.router.navigate(['/Dashboard']);  
                  }  
                  else
@@ -127,12 +129,10 @@ export class LoginComponent implements OnInit {
           err => {
             let logindetails = JSON.stringify(err);
             let errormessage = JSON.parse(logindetails);
-            this.result = errormessage.error.detail;
-            //console.log(logindetails);
+            this.result = errormessage.error.detail;           
             console.log(errormessage);
           })
-    //console.log(this.loginForm.value.username);
-    //console.log(this.loginFormErrors.username);
+  
   }
   clickMe(event)
   {
@@ -142,11 +142,8 @@ export class LoginComponent implements OnInit {
         //console.log(event.password);
         console.log('form submitted');
       } else {
-        console.log('form was not submitted');
-        //this.validateAllFormFields(this.form); //{7}
-      }
-    //this.router.navigate(['/Dashboard']);     
- 
+        console.log('form was not submitted');      
+      }  
 }
   public socialSignIn(socialPlatform : string) {
     //console.log("ClickEvent socialmedia");
@@ -163,7 +160,7 @@ export class LoginComponent implements OnInit {
       (userData) => {
        console.log(socialPlatform+" sign in data : " , userData);
         //Now sign-in with userData
-        this.http.get(this.actionUrl+'login/sociallogin/', {         
+        this.http.get(this.Domainwithhttpurl+'user/sociallogin/', {         
             params: {
                 socialtype: "facebook",
                 socialtypetoken: "XXXxx"              
@@ -182,9 +179,3 @@ export class LoginComponent implements OnInit {
     );
   }
 }
-//the function
-// function checkCheckbox(c: AbstractControl){
-//     if(c.get('confirmCheckbox').value == false){
-//         return false;
-//     }else return true;
-// } 

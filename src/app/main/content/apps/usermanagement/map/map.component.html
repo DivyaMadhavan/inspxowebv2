@@ -22,13 +22,16 @@
                                    #search [formControl]="searchControl"  type="text" placeholder="Search location">
                                 </mat-form-field> 
                                 <div class="w-10-p"></div>
-                                <mat-form-field class="w-100-p">
+                                <div class="w-40-p">
+                                   {{currentAddress}}
+                                </div>
+                                <!-- <mat-form-field class="w-100-p">
                                     <input matInput
                                            name="currentaddress"
                                            formControlName="currentaddress"
                                            placeholder="Current Address"
                                            required>
-                                </mat-form-field>
+                                </mat-form-field> -->
 </div>
                     </form>
                 </div>            

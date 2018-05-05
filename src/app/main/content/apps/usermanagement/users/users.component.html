@@ -68,7 +68,7 @@
               <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Role</mat-header-cell>
               <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
                   <p class="price text-truncate">
-                      {{product.rolename}}
+                      {{product.role}}
                   </p>
               </mat-cell>
           </ng-container>
@@ -97,7 +97,7 @@
         <!-- view Column -->
         <ng-container cdkColumnDef="view">
             <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>View</mat-header-cell>
-            <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
+            <mat-cell *cdkCellDef="let product"  [routerLink]="'/apps/usermanagement/viewuser/'+product.id" fxHide fxShow.gt-xs>
                 <mat-icon>remove_red_eye</mat-icon>                   
             </mat-cell>
         </ng-container>

@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
         private socialAuthService: AuthService,private http: HttpClient, public dialog: MatDialog
     )
     {
-        this.actionUrl = _configuration.ServerWithApiUrl;
+        this.actionUrl = _configuration.ServerWithhttpApiUrl;
         this.fuseConfig.setConfig({
             layout: {
                 navigation: 'none',
@@ -84,7 +84,6 @@ export class RegisterComponent implements OnInit {
             username : ['', Validators.required],
             confirmCheckbox:['',Validators.required]          
         },{validator: checkCheckbox});
-
         this.registerForm.valueChanges.subscribe(() => {
             this.onRegisterFormValuesChanged();
         });

@@ -42,6 +42,7 @@ export class AddandupdateusersComponent implements OnInit {
       private location: Location,public dialog: MatDialog
   )
   {
+   
    //this.mapvalue = this.mapdetailsvalue.getData();
   }
   ngOnInit()
@@ -83,15 +84,15 @@ export class AddandupdateusersComponent implements OnInit {
           id                    : [this.product.id],
           firstname             : [this.product.firstname],
           emailid               :  [this.product.emailid],       
-          rolename              : [ this.product.rolename],
+          rolename              : [ this.product.role],
           lastname              : [ this.product.lastname],
           username              : [ this.product.username],
           password              : [ this.product.password],
-          organization          : [ this.product.organization],
+          organization          : [ this.product.accountname],
           address               : [ this.product.address ],
           //usertype              : [  this.product.usertype],
           userstatus            : [ this.product.userstatus],
-          phone                 : [ this.product.phone]  
+          phone                 : [ this.product.phonenumber]  
         });
   }
 

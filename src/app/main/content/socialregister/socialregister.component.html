@@ -49,8 +49,13 @@
                         Phone Number is required
                     </mat-error>
                 </mat-form-field>
-                    <div class="title">Company Details</div>
-
+                <div class="title">Account Details</div>
+                        <mat-form-field>
+                            <input matInput placeholder="Account ID" formControlName="accountid">
+                            <mat-error *ngIf="registerFormErrors.accountid.required">
+                                Account ID is required
+                            </mat-error>
+                        </mat-form-field>
                     <mat-form-field>
                             <input matInput placeholder="Company Name" formControlName="companyname">
                             <mat-error *ngIf="registerFormErrors.companyname.required">
@@ -58,7 +63,7 @@
                             </mat-error>
                         </mat-form-field>
                      
-                            <mat-form-field>
+                            <!-- <mat-form-field>
                                 <mat-select placeholder="Choose Industry" formControlName="industrylistdet">
                                     <mat-option [value]="'Technology'">
                                         Technology
@@ -82,7 +87,18 @@
                                 <mat-error *ngIf="registerFormErrors.industrylistdet.required">
                                         Industry is required
                                     </mat-error>                            
-                            </mat-form-field>
+                            </mat-form-field> -->
+
+                            <mat-form-field>
+                                <mat-select placeholder="Industry" formControlName="industrylistdet" required>
+                                        <mat-option *ngFor="let ind of industry" [value]="ind.industryname">
+                                            {{ ind.industryname }}
+                                          </mat-option>
+                                    </mat-select>                                      
+                                <mat-error *ngIf="registerFormErrors.industrylistdet.required">
+                                      Industry is required
+                                </mat-error>                            
+                        </mat-form-field>
                              
                                 <mat-form-field>
                                     <input matInput placeholder="Country" formControlName="countryname">
@@ -90,7 +106,7 @@
                                     Country is required
                                     </mat-error>
                                 </mat-form-field>
-
+ 
               
 
                     <div class="terms" fxLayout="row" fxLayoutAlign="center center">
@@ -103,9 +119,9 @@
                         [disabled]="registerForm.invalid" type="submit">
                     Register
                 </button> 
-                    <div fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayout="column" fxLayoutAlign="start center">
                         <p style="color:green">{{result}}</p>  
-                        <p style="color:red">{{errormessage}}</p>  
+                        <p style="color:red;text-align:center">{{errormessage}}</p>  
                      </div>
           </form>
          

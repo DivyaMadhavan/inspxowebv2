@@ -49,6 +49,7 @@ import { AddandupdateusersComponent } from './addandupdateusers/addandupdateuser
 //import { UserComponent } from './user/user.component';
 import { addandupdateService } from './addandupdateusers/addandupdate.service';
 import { MapComponent } from './map/map.component';
+import { ViewUserComponent } from './view-user/view-user.component';
 //import { UserDetailViewComponent } from './user-detail-view/user-detail-view.component';
 
 const routes: Routes = [
@@ -72,13 +73,13 @@ const routes: Routes = [
         resolve  : {
             data: addandupdateService
         }
-    // },
-    // {
-    //     path     : 'users/:id',
-    //     component: UserDetailViewComponent,
-    //     resolve  : {
-    //         data: addandupdateService
-    //     }
+    },
+    {
+        path     : 'viewuser/:id',
+        component: ViewUserComponent,
+        resolve  : {
+            data: addandupdateService
+        }
     // },
     // {
     //     path     : 'users/:id/:handle',
@@ -87,12 +88,14 @@ const routes: Routes = [
     //         data: addandupdateService
     //     }
     }
+    
 ];
 @NgModule({
     declarations: [
         UsersComponent,
         AddandupdateusersComponent,
-        MapComponent 
+        MapComponent,
+        ViewUserComponent 
     ],
     imports     : [
         RouterModule.forChild(routes),       

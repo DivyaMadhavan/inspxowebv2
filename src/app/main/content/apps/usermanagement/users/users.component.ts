@@ -43,6 +43,8 @@ export class UsersComponent implements OnInit {
     }
     ngOnInit()
     {
+        //let accountid = sessionStorage.getItem("accountid");
+        //console.log(accountid);
         this.dataSource = new FilesDataSource(this.productsService, this.paginator, this.sort);
         Observable.fromEvent(this.filter.nativeElement, 'keyup')
                   .debounceTime(150)
@@ -75,7 +77,7 @@ export class UsersComponent implements OnInit {
         });
 
     }
-   // editContact(product)
+   //editContact(product)
     //{
         // this.dialogRef = this.dialog.open(UserDetailViewComponent, {
         //     panelClass: 'user-detail-view-dialog',

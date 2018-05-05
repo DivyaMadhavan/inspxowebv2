@@ -27,7 +27,7 @@ export class ResetpasswordComponent implements OnInit {
       private http: HttpClient, private _configuration: Configuration
   ) 
   {
-    this.actionUrl = _configuration.ServerWithApiUrl;
+    this.actionUrl = _configuration.ServerWithdomainAPI;
     this.fuseConfig.setConfig({
         layout: {
             navigation: 'none',
@@ -79,7 +79,7 @@ export class ResetpasswordComponent implements OnInit {
     this.errormessage='';
     let password = this.resetForm.value.password;
     let accountid = this.resetForm.value.accountid;
-    this.http.put(this.actionUrl+'login/passreset/1',JSON.stringify({         
+    this.http.put(this.actionUrl+'user/passreset/',JSON.stringify({         
          "password":password  
          }),httpOptions).subscribe(data => {                
                let logindetails = JSON.stringify(data);

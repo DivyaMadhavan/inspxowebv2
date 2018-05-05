@@ -17,7 +17,7 @@ const httpOptions = {
       'Content-Type':  'application/json'      
     })
   };
-
+  let industryarray= [];
 @Component({
   selector: 'app-socialregister',
   templateUrl: './socialregister.component.html',
@@ -26,19 +26,23 @@ const httpOptions = {
 })
 export class SocialregisterComponent implements OnInit {
     private actionUrl: string;
+    private industryactionUrl:string;
      registerForm: FormGroup;
      registerFormErrors: any;
      result :string='';
      errormessage:string='';
      date:any;
      dialogRef: any;
+     industry = [];
     constructor(
         private fuseConfig: FuseConfigService,
         private formBuilder: FormBuilder,private _configuration: Configuration,
         private socialAuthService: AuthService,private http: HttpClient, public dialog: MatDialog
     )
     {
-        this.actionUrl = _configuration.ServerWithApiUrl;
+        this.industryactionUrl = _configuration.ServerWithhttpApiUrl;
+        this.actionUrl = _configuration.ServerWithdomainAPI;
+       
         this.fuseConfig.setConfig({
             layout: {
                 navigation: 'none',
@@ -46,8 +50,8 @@ export class SocialregisterComponent implements OnInit {
                 footer    : 'none'
             }
         });
-
-        this.registerFormErrors = {            
+        this.registerFormErrors = {  
+            accountid :{},
             firstname  : {},
             lastname   : {},
             email      : {},
@@ -67,15 +71,46 @@ export class SocialregisterComponent implements OnInit {
             lastname     : [ { value   : "facebookname", disabled: true }, Validators.required],
             email        : [ { value   : "keerthanamehendran@gmail.com", disabled: true }, [Validators.required, Validators.email]],
             phonenumber  : [ { value   : "9568741230", disabled: true}, Validators.required],
-            industrylistdet :     ['', Validators.required],                   
-            companyname       : ['', Validators.required],          
+            accountid     :['', Validators.required],
+            industrylistdet : ['', Validators.required],                   
+            companyname : ['', Validators.required],          
             countryname : ['', Validators.required], 
             confirmCheckbox:['',Validators.required]           
         },{validator: checkCheckbox});
-
         this.registerForm.valueChanges.subscribe(() => {
             this.onRegisterFormValuesChanged();
         });
+        this.getindustrydetails();
+    }
+    getindustrydetails()
+    {
+      this.http.get(this.industryactionUrl +'getindustry/', {         
+           
+    }).subscribe(orgdata => {  
+        let organisationdetails = JSON.stringify(orgdata);
+        let industrylistdet =JSON.parse(organisationdetails);
+        if(industrylistdet.length != 0)
+        {
+           for(var org=0;org < industrylistdet.length;org++)
+           {
+            industryarray.push({"id":industrylistdet[org].id,"industryname":industrylistdet[org].industryname});        
+           }  
+           let organisationdetails1 = JSON.stringify(industryarray);
+           //console.log("organisationdetails1");
+           console.log(organisationdetails1);
+           this.industry =JSON.parse(organisationdetails1);  
+           console.log(this.industry); 
+        }  
+        else
+        {
+           // this.industry.push({"industryname":"No Industry Found"});
+            //this.result = "Account was not Activated";
+        } 
+    },
+    err => {
+         console.error(err);
+       //this.errormessage = "Registration Failed";
+     })
     }
     termsandconditions()
     {
@@ -102,7 +137,7 @@ export class SocialregisterComponent implements OnInit {
     {
     
         //console.log(this.registerForm);
-        let Accountid= 123456;  
+        let Accountid= this.registerForm.value.accountid;
         let firstname = this.registerForm.value.firstname;
         let lastname = this.registerForm.value.lastname;
         let emailid = this.registerForm.value.email;
@@ -120,46 +155,47 @@ export class SocialregisterComponent implements OnInit {
         // let rolename = "Owner";
         // let address = "Current Address";
         console.log(JSON.stringify({
-            "Accountid":123456,            
-            "firstname": firstname,   
-            "lastname":lastname,  
-            "emailid":emailid,   
-            "phonenumber": phone,     
-            "companyname": companyname, 
-            "industryname": industryname,  
-            "country":country,
-            "username":username,    
-            "password": password,  
-            "dojoin":"04-08-2017",
-            "accounttype":"Free Tire",
-            "accountstatus": "True",
-            "dosubcription":"04-08-2017",
-            "expiredate":"04-08-2017",
-            "rolename":"Owner",
-            "address":"Current Address",
-            "socialtype" : "facebook",
-            "socialtypeToken":"abcdfhjksdfjsdbfdjshfi"
-       }));
-       this.http.post(this.actionUrl+"login/socialregister/",JSON.stringify({
-             "Accountid":123456,            
+            "domain_url": Accountid +'.ptetc.in',
+            "schema_name": Accountid,             
              "firstname": firstname,   
              "lastname":lastname,  
              "emailid":emailid,   
-             "phone": phone,     
+             "phonenumber": phone,     
              "companyname": companyname, 
              "industryname": industryname,  
              "country":country,
              "username":username,    
              "password": password,  
-             "dojoin":"04-08-2017",
-             "accounttype":"Free Tire",
+             "dojoin":"04-08-2017", 
+             "subscriptiontype":"free Tire",           
              "accountstatus": "True",
-             "dosubcription":"04-08-2017",
-             "expiredate":"04-08-2017",
-             "rolename":"Owner",
-             "address":"Current Address",
+             "dosubscription":"04-08-2017",
+             "expirydate":"04-08-2017",
+             "role":"Owner",
              "socialtype" : "facebook",
-             "socialtypeToken":"abcdfhjksdfjsdbfdjshfi"
+             "socialtypetoken":"abcdfhjksdfjsdbfdjshfi"
+       }));
+       //let socialUrl = "https://"+Accountid+this.actionUrl;
+       this.http.post(this.industryactionUrl+"socialregister/",JSON.stringify({
+           "domain_url": Accountid +'.ptetc.in',
+            "schema_name": Accountid,             
+             "firstname": firstname,   
+             "lastname":lastname,  
+             "emailid":emailid,   
+             "phonenumber": phone,     
+             "companyname": companyname, 
+             "industryname": industryname,  
+             "country":country,
+             "username":username,    
+             "password": password,  
+             "dojoin":"04-08-2017", 
+             "subscriptiontype":"free Tire",           
+             "accountstatus": "In-Active",
+             "dosubscription":"04-08-2017",
+             "expirydate":"04-08-2017",
+             "role":"Owner",
+             "socialtype" : "facebook",
+             "socialtypetoken":"abcdfhjksdfjsdbfdjshfi"
         }),httpOptions).subscribe(data => {  
             let registerresponse = JSON.stringify(data);
             let registereddet =JSON.parse(registerresponse);

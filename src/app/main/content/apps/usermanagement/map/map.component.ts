@@ -49,7 +49,7 @@ ngOnInit() {  //set google maps defaults
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;      
       this.zoom = 12;
-      this.geoCoder.geocode({'location': {lat: position.coords.latitude, lng: position.coords.longitude }}, (results, status) => {
+      this.geoCoder.geocode({'location': {lat: this.latitude, lng: this.longitude }}, (results, status) => {
        // console.log(results);          
         if (status === 'OK') {
           console.log(results[0]);
@@ -139,7 +139,7 @@ ngOnInit() {  //set google maps defaults
     createContactForm()
     {
         return this.formBuilder.group({
-          currentAddress      : [this.mapdet.currentAddress],
+         
         });
     }
     //getaddress()

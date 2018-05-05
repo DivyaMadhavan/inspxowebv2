@@ -15,13 +15,16 @@ export class addandupdateService implements Resolve<any>
     routeParams: any;
     product: any;
     status:any;
+    accountid:any;
     onProductChanged: BehaviorSubject<any> = new BehaviorSubject({});
 
     constructor(
         private http: HttpClient, private _configuration: Configuration
     )
     {
-        this.actionUrl = _configuration.ServerWithApiUrl;
+        console.log("getting user info");
+        this.actionUrl = _configuration.ServerWithdomainAPI;
+        console.log(this.actionUrl);
     }
 
     /**
@@ -55,11 +58,22 @@ export class addandupdateService implements Resolve<any>
                 this.onProductChanged.next(false);
                 resolve(false);
             }
-            else if ((this.routeParams.firstname !== '') && (this.routeParams.id !=''))
+            else if (this.routeParams.id !='')
             {
-                console.log("getting user info");
-                console.log(this.routeParams.id);
-                this.http.get( this.actionUrl+'user/detviewuser/' + this.routeParams.id)
+                //console.log("getting user info");
+                //console.log(this.routeParams.id);
+                //console.log(this.actionUrl);
+                let accountid = sessionStorage.getItem("accountid");
+                let securitycode =sessionStorage.getItem("securitycode");
+                console.log(securitycode);      
+                let httpOptions = {
+                    headers: new HttpHeaders({             
+                      'securitycode': securitycode     
+                    })
+                  };
+                let url = "https://"+ accountid +this.actionUrl;
+                console.log(url+'user/sumviewuser/');
+                this.http.get(url+'user/detviewuser/' + this.routeParams.id,httpOptions)
                     .subscribe((response: any) => {
                         this.product = response;
                         //this.product.pagetype = "delete";
@@ -69,9 +83,9 @@ export class addandupdateService implements Resolve<any>
             }
             else
             {
-                console.log("getting user info");
-                console.log(this.routeParams.id);
-                this.http.get( this.actionUrl+'user/detviewuser/' + this.routeParams.id)
+                //console.log("getting user info");
+                //console.log(this.routeParams.id);
+                this.http.get(this.actionUrl +'detviewuser/' + this.routeParams.id)
                     .subscribe((response: any) => {
                         this.product = response;
                         this.onProductChanged.next(this.product);
