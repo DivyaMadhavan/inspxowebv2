@@ -8,7 +8,7 @@
               <img src="assets/images/logos/fuse.svg">
           </div>
 
-          <div class="title">Inspexo</div>
+          <div class="title">Inspxo</div>
           <form name="loginForm" [formGroup]="loginForm" (ngSubmit)="loginclick()" novalidate>
               <mat-form-field>
                   <input matInput  type="text" placeholder="Username" [(ngModel)]="username" formControlName="username">
@@ -35,10 +35,13 @@
                   <!-- <mat-checkbox class="remember-me" aria-label="Remember Me">
                       Remember Me
                   </mat-checkbox> -->
-
-                  <a class="forgot-password" [routerLink]="'/ForgotPassword'">
-                      Forgot Password?
-                  </a>
+                  <div class="title" style="visibility: hidden;">Training vedio help</div> 
+                  <div class="titleright">
+                        <a class="forgot-password" [routerLink]="'/ForgotPassword'">
+                            Forgot Password?
+                        </a>
+                  </div>
+                
               </div>
 
               <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"

@@ -63,14 +63,16 @@ export class SocialregisterComponent implements OnInit {
     }
     ngOnInit()
     {
-       // this.date = new Date();
-        //let dateval= this.datePipe.transform(this.date, 'dd/MM/yyyy');
-        //console.log(dateval);
-        this.registerForm = this.formBuilder.group({
-            firstname    : [ { value   : "facebookname", disabled: true }, Validators.required],
-            lastname     : [ { value   : "facebookname", disabled: true }, Validators.required],
-            email        : [ { value   : "keerthanamehendran@gmail.com", disabled: true }, [Validators.required, Validators.email]],
-            phonenumber  : [ { value   : "9568741230", disabled: true}, Validators.required],
+          
+            let Regname = sessionStorage.getItem("Regname");            
+            let socialemail = sessionStorage.getItem("RegSocialemail");  
+            //let Regname  = "dsf";
+            //let socialemail = "sfdsf@gmail.com";
+           this.registerForm = this.formBuilder.group({
+            firstname    : [ Regname, Validators.required],
+            lastname     : [ Regname, Validators.required],
+            email        : [ socialemail , [Validators.required, Validators.email]],
+            phonenumber  : [ '', Validators.required],
             accountid     :['', Validators.required],
             industrylistdet : ['', Validators.required],                   
             companyname : ['', Validators.required],          
@@ -127,16 +129,14 @@ export class SocialregisterComponent implements OnInit {
                 {
                     return;
                 }
-    
                 //this.contactsService.updateContact(response.getRawValue());
-    
             });
     }
-    
     Registerclick()
     {
-    
         //console.log(this.registerForm);
+        let socialtype = sessionStorage.getItem("RegSocialtype");          
+        let socialtypetokenvalue = sessionStorage.getItem("RegSocialtoken");   
         let Accountid= this.registerForm.value.accountid;
         let firstname = this.registerForm.value.firstname;
         let lastname = this.registerForm.value.lastname;
@@ -145,64 +145,35 @@ export class SocialregisterComponent implements OnInit {
         let companyname = this.registerForm.value.companyname;      
         let industryname = this.registerForm.value.industrylistdet;
         let country = this.registerForm.value.countryname;
-        let username = "None";
-        let password = "None";
-        // let dojoin = "04-08-2017";
-        // let accounttype = "Free Tire";
-        // let accountstatus = "True";
-        // let dosubcription = "04-08-2017";
-        // let expirydate = "04-08-2017";
-        // let rolename = "Owner";
-        // let address = "Current Address";
-        console.log(JSON.stringify({
-            "domain_url": Accountid +'.ptetc.in',
-            "schema_name": Accountid,             
-             "firstname": firstname,   
-             "lastname":lastname,  
-             "emailid":emailid,   
-             "phonenumber": phone,     
-             "companyname": companyname, 
-             "industryname": industryname,  
-             "country":country,
-             "username":username,    
-             "password": password,  
-             "dojoin":"04-08-2017", 
-             "subscriptiontype":"free Tire",           
-             "accountstatus": "True",
-             "dosubscription":"04-08-2017",
-             "expirydate":"04-08-2017",
-             "role":"Owner",
-             "socialtype" : "facebook",
-             "socialtypetoken":"abcdfhjksdfjsdbfdjshfi"
-       }));
-       //let socialUrl = "https://"+Accountid+this.actionUrl;
-       this.http.post(this.industryactionUrl+"socialregister/",JSON.stringify({
-           "domain_url": Accountid +'.ptetc.in',
-            "schema_name": Accountid,             
-             "firstname": firstname,   
-             "lastname":lastname,  
-             "emailid":emailid,   
-             "phonenumber": phone,     
-             "companyname": companyname, 
-             "industryname": industryname,  
-             "country":country,
-             "username":username,    
-             "password": password,  
-             "dojoin":"04-08-2017", 
-             "subscriptiontype":"free Tire",           
-             "accountstatus": "In-Active",
-             "dosubscription":"04-08-2017",
-             "expirydate":"04-08-2017",
-             "role":"Owner",
-             "socialtype" : "facebook",
-             "socialtypetoken":"abcdfhjksdfjsdbfdjshfi"
-        }),httpOptions).subscribe(data => {  
+       let allparams = {
+            "domain_url": Accountid+".ptetc.in",
+            "schema_name": Accountid,
+            "firstname": firstname,
+            "lastname": lastname,
+            "emailid": emailid,
+            "phonenumber": phone,
+            "companyname": companyname,
+            "industryname": industryname,
+            "country": country,
+            "username": "None",
+            "password": "None",
+            "dojoin": "30-04-2018",
+            "subscriptiontype": "Free tier",
+            "accountstatus": "In-Active",
+            "dosubscription": "30-04-2018",
+            "expirydate": "30-05-2018",
+            "role": "Owner",
+            "socialtype": socialtype,
+            "socialtypetoken": socialtypetokenvalue  
+           };
+           console.log(allparams);
+           console.log(JSON.stringify(allparams));
+       this.http.post(this.industryactionUrl+"socialregister/",allparams,httpOptions).subscribe(data => {  
             let registerresponse = JSON.stringify(data);
             let registereddet =JSON.parse(registerresponse);
             console.error(registereddet);  
             //this.errormessage="";   
             this.result = registereddet.Message;
-           
          },
           err => {
             console.error(err);         

@@ -35,7 +35,7 @@
           <button mat-raised-button
                   [routerLink]="'/apps/usermanagement/users/new'"
                   class="add-product-button mat-white-bg my-12 mt-sm-0">
-              <span>ADD NEW User</span>
+              <span>Add New User</span>
           </button>
 
       </div>
@@ -58,7 +58,7 @@
         </ng-container>
            <!-- firstname Column -->
            <ng-container cdkColumnDef="firstname">
-            <mat-header-cell *cdkHeaderCellDef mat-sort-header>firstname</mat-header-cell>
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>First Name</mat-header-cell>
             <mat-cell *cdkCellDef="let product">
                 <p class="text-truncate">{{product.firstname}}</p>
             </mat-cell>
@@ -82,9 +82,6 @@
                 </p>
             </mat-cell>
         </ng-container>
-
-        
-
         <!-- Price Column -->
         <ng-container cdkColumnDef="userstatus">
           <mat-header-cell *cdkHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Status</mat-header-cell>
@@ -97,14 +94,14 @@
         <!-- view Column -->
         <ng-container cdkColumnDef="view">
             <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>View</mat-header-cell>
-            <mat-cell *cdkCellDef="let product"  [routerLink]="'/apps/usermanagement/viewuser/'+product.id" fxHide fxShow.gt-xs>
+            <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
                 <mat-icon>remove_red_eye</mat-icon>                   
             </mat-cell>
         </ng-container>
            <!-- edit Column -->
            <ng-container cdkColumnDef="edit">
               <mat-header-cell *cdkHeaderCellDef fxHide fxShow.gt-xs>Edit</mat-header-cell>
-              <mat-cell *cdkCellDef="let product" [routerLink]="'/apps/usermanagement/users/'+product.id" fxHide fxShow.gt-xs>
+              <mat-cell *cdkCellDef="let product" fxHide fxShow.gt-xs>
                   <mat-icon>mode_edit</mat-icon>                   
               </mat-cell>
           </ng-container>

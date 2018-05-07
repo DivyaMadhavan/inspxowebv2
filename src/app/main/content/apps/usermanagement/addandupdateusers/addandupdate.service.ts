@@ -83,7 +83,7 @@ export class addandupdateService implements Resolve<any>
             }
             else
             {
-                //console.log("getting user info");
+                 //console.log("getting user info");
                 //console.log(this.routeParams.id);
                 this.http.get(this.actionUrl +'detviewuser/' + this.routeParams.id)
                     .subscribe((response: any) => {

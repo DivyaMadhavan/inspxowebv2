@@ -49,9 +49,6 @@ import { AddandupdateusersComponent } from './addandupdateusers/addandupdateuser
 //import { UserComponent } from './user/user.component';
 import { addandupdateService } from './addandupdateusers/addandupdate.service';
 import { MapComponent } from './map/map.component';
-import { ViewUserComponent } from './view-user/view-user.component';
-//import { UserDetailViewComponent } from './user-detail-view/user-detail-view.component';
-
 const routes: Routes = [
         {
         path     : 'users',
@@ -73,29 +70,13 @@ const routes: Routes = [
         resolve  : {
             data: addandupdateService
         }
-    },
-    {
-        path     : 'viewuser/:id',
-        component: ViewUserComponent,
-        resolve  : {
-            data: addandupdateService
-        }
-    // },
-    // {
-    //     path     : 'users/:id/:handle',
-    //     component: UserDetailViewComponent,
-    //     resolve  : {
-    //         data: addandupdateService
-    //     }
     }
-    
 ];
 @NgModule({
     declarations: [
         UsersComponent,
         AddandupdateusersComponent,
-        MapComponent,
-        ViewUserComponent 
+        MapComponent                 
     ],
     imports     : [
         RouterModule.forChild(routes),       
@@ -174,7 +155,7 @@ const routes: Routes = [
         MatTooltipModule
     ],
     providers   : [
-        ManageuserService,addandupdateService        
+        ManageuserService        
     ],
     entryComponents: [MapComponent]
 })

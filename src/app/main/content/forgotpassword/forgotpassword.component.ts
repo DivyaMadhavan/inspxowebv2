@@ -42,6 +42,7 @@ export class ForgotpasswordComponent implements OnInit {
 
     ngOnInit()
     {
+        console.log(this.actionUrl);
         this.forgotPasswordForm = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
             username:['', Validators.required],
@@ -78,11 +79,11 @@ export class ForgotpasswordComponent implements OnInit {
     {
         this.result='';
         this.errormessage='';
-        console.log( this.forgotPasswordForm);
+        console.log(this.actionUrl);
         let username = this.forgotPasswordForm.value.username;
         let emailid = this.forgotPasswordForm.value.email;
         let accountid = this.forgotPasswordForm.value.accountid;
-        this.http.get(this.actionUrl+'user/forgotpass/', {         
+        this.http.get("https://"+this.actionUrl+'user/forgotpass/', {         
                   params: {
                       username: username,
                       emailid: emailid,
@@ -92,8 +93,7 @@ export class ForgotpasswordComponent implements OnInit {
                    console.log(data);
                    let forgotpassword = JSON.stringify(data);
                    let returnresponse =JSON.parse(forgotpassword);
-                   this.result = returnresponse.Message;          
-                  
+                   this.result = returnresponse.Message; 
             },
             err => {
               console.log(err);

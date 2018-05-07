@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 import {MatTableDataSource,MatDialog} from '@angular/material';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
+import { Router } from '@angular/router';
 import { TermsandconditionComponent } from './termsandcondition/termsandcondition.component';
 import { Configuration } from '../../../app.constants';
-import {RegisterService} from './register.service';
+//import {RegisterService} from './register.service';
 import {
     AuthService,
     FacebookLoginProvider,
@@ -35,8 +36,8 @@ export class RegisterComponent implements OnInit {
      dialogRef: any;
      industry = [];
     constructor(
-        private fuseConfig: FuseConfigService,
-        private formBuilder: FormBuilder, private _configuration: Configuration, private registerservice:RegisterService,
+        private fuseConfig: FuseConfigService, private router :Router,
+        private formBuilder: FormBuilder, private _configuration: Configuration,
         private socialAuthService: AuthService,private http: HttpClient, public dialog: MatDialog
     )
     {
@@ -122,7 +123,17 @@ export class RegisterComponent implements OnInit {
                 //this.contactsService.updateContact(response.getRawValue());
             });
     }
-    
+    // isEmailUnique(control: FormControl) {
+    //     const q = new Promise((resolve, reject) => {
+    //       setTimeout(() => {
+    //         this.registerservice.isEmailRegisterd(control.value).subscribe(() => {
+    //           resolve(null);
+    //         }, () => { resolve({ 'isEmailUnique': true }); });
+    //       }, 1000);
+    //     });
+    //     return q;
+    //   }
+     
     Registerclick()
     {
         this.result='';
@@ -262,23 +273,17 @@ public socialSignIn(socialPlatform : string) {
     
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
-       console.log(socialPlatform+" sign in data : " , userData);
-        //Now sign-in with userData
-        this.http.get(this.actionUrl+'login/socialregister/', {         
-            params: {
-                socialtype: "facebook",
-                socialtypetoken: "XXXxx"              
-              } 
-         }).subscribe(data => { 
-             let logindetails1 = JSON.stringify(data);
-             let userdetails1 =JSON.parse(logindetails1); 
-             console.log(userdetails1);
-             //this.router.navigate(['/Dashboard']); 
-      },
-      err => {
-        console.log("Error occured");
-      })
-        //this.router.navigate(['/Dashboard']);
+       console.log(socialPlatform+" sign in data : " , userData); 
+       let authdetails = JSON.stringify(userData);
+       let userDet = JSON.parse(authdetails);
+       console.log(userDet);
+       console.log(userDet.id);
+       console.log(userDet.provider); 
+       sessionStorage.setItem("RegSocialtype", userDet.provider);
+       sessionStorage.setItem("RegSocialtoken", userDet.id);
+       sessionStorage.setItem("Regname",userDet.name);
+       sessionStorage.setItem("RegSocialemail", userDet.email);
+       this.router.navigate(['/SocialRegister']); 
       }
     );
   }

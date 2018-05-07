@@ -21,20 +21,19 @@
             <div class="title">Personal Details</div>
                 
                 <mat-form-field>
-                    <input matInput placeholder="First Name" formControlName="firstname">
+                    <input matInput placeholder="First Name" readonly formControlName="firstname">
                     <mat-error *ngIf="registerFormErrors.firstname.required">
                        First Name is required
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                        <input matInput placeholder="Last Name" formControlName="lastname">
+                        <input matInput placeholder="Last Name" readonly formControlName="lastname">
                         <mat-error *ngIf="registerFormErrors.lastname.required">
                             Last Name is required
                         </mat-error>
                     </mat-form-field>
-
                 <mat-form-field>
-                    <input matInput placeholder="Email" formControlName="email">
+                    <input matInput placeholder="Email" readonly formControlName="email">
                     <mat-error *ngIf="registerFormErrors.email.required">
                         Email is required
                     </mat-error>

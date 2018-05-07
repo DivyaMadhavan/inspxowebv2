@@ -19,6 +19,7 @@ import { AppComponent } from './app.component';
 import { FuseMainModule } from './main/main.module';
 import { FuseSampleModule } from './main/content/sample/sample.module';
 import { FuseLoginModule } from './main/content/login/login.module';
+import { FuseSocialLoginModule } from './main/content/sociallogin/sociallogin.module';
 import { AuditRegistorModule } from './main/content/register/register.module';
 import { HelpPageModule } from './main/content//helppage/helppage.module';
 import { Forgotpasswordmodule } from './main/content/forgotpassword/forgotpassword.module';
@@ -97,6 +98,7 @@ const appRoutes: Routes = [
         FuseMainModule,
         FuseSampleModule,
         FuseLoginModule,
+        FuseSocialLoginModule,
         AuditRegistorModule,
         Forgotpasswordmodule,
         CreatetemplateModule,       

@@ -16,13 +16,13 @@ import { Configuration } from '../../../app.constants';
 
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-sociallogin',
+  templateUrl: './sociallogin.component.html',
+  styleUrls: ['./sociallogin.component.scss'],
   animations : fuseAnimations
 })
 
-export class LoginComponent implements OnInit {
+export class SocialLoginComponent implements OnInit {
   private Domainurl: string; 
   private Domainwithhttpurl: string;
   loginForm: FormGroup;
@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
       });
       this.loginFormErrors = {
          
-          password: {},
-          username :{},
+        
           accountid:{}
       };
   }
@@ -56,9 +55,7 @@ export class LoginComponent implements OnInit {
     this.result=null;
     console.log("event listening");
     console.log(this.Domainwithhttpurl);
-      this.loginForm = this.formBuilder.group({        
-          password: ['', Validators.required],
-          username: ['', Validators.required],
+      this.loginForm = this.formBuilder.group({   
           accountid: ['', Validators.required]       
       }); 
 
@@ -89,19 +86,17 @@ export class LoginComponent implements OnInit {
   loginclick() {
     this.result='';
     //this.errormessage='';
-      console.log(this.Domainurl);
-      let username = this.loginForm.value.username;
-      let password = this.loginForm.value.password;
-      let accountid = this.loginForm.value.accountid;
-      let url="https://"+accountid+'.'+"ptetc.in:8080/user/logincheck/";
+     // console.log(this.Domainurl);   
+      let accountid = this.loginForm.value.accountid; 
+      let socialtype = sessionStorage.getItem("Socialtype");
+      let socialtypetoken = sessionStorage.getItem("socialtypetoken");      
+      let url="https://"+accountid+'.'+"ptetc.in:8080/user/sociallogin/";
       this.http.get(url, {         
                 params: {
-                    username: username,
-                    password: password,
-                    accountid: accountid,
+                    socialtype: socialtype,
+                    socialtypetoken:socialtypetoken
                   } 
-             }).subscribe(data => {  
-                
+             }).subscribe(data => {                  
                  let logindetails = JSON.stringify(data);
                  let userdetails =JSON.parse(logindetails);
                  if(userdetails.length != 0)
@@ -132,53 +127,5 @@ export class LoginComponent implements OnInit {
             this.result = errormessage.error.detail;           
             console.log(errormessage);
           })
-  
-  }
-  clickMe(event)
-  {
-    console.log('clicking');
-    if (this.loginForm.valid) {
-        console.log(this.loginForm);
-        //console.log(event.password);
-        console.log('form submitted');
-      } else {
-        console.log('form was not submitted');      
-      }  
-}
-  public socialSignIn(socialPlatform : string) {    
-    let socialPlatformProvider;
-    if(socialPlatform == "facebook"){        
-      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    }else if(socialPlatform == "google"){        
-      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    }
-    
-    this.socialAuthService.signIn(socialPlatformProvider).then(
-      (userData) => {
-       console.log(socialPlatform+" sign in data : " , userData);      
-        let authdetails = JSON.stringify(userData);
-        let userDet = JSON.parse(authdetails);
-        console.log(userDet);
-        console.log(userDet.id);
-        console.log(userDet.provider); 
-        sessionStorage.setItem("Socialtype", userDet.provider);
-        sessionStorage.setItem("socialtypetoken", userDet.id);
-        this.router.navigate(['/SocialLogin']);     
-      }
-    );
-       
-        // let authdetails = JSON.stringify({email:"ssrini95@gmail.com",
-        // id:"776159035924843",
-        //  image:"https://graph.facebook.com/776159035924843/picture?type=normal",
-        // name:"Srini Vasan",
-        //    provider:"facebook",token:"EAAFHF"
-        // });
-        // let userDet = JSON.parse(authdetails);
-        // console.log(userDet);
-        // console.log(userDet.id);
-        // console.log(userDet.provider); 
-        // sessionStorage.setItem("Socialtype", userDet.provider);
-        // sessionStorage.setItem("socialtypetoken", userDet.id);
-        // this.router.navigate(['/SocialLogin']);
- }
+        }
 }
